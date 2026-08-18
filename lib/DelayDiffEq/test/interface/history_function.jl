@@ -28,14 +28,8 @@ end
     integrator = init(prob, Tsit5())
 
     # combined history function
-    history_notinplace = DelayDiffEq.HistoryFunction(
-        h_notinplace,
-        integrator
-    )
-    history_inplace = DelayDiffEq.HistoryFunction(
-        h_inplace,
-        integrator
-    )
+    history_notinplace = DelayDiffEq.HistoryFunction(h_notinplace, integrator)
+    history_inplace = DelayDiffEq.HistoryFunction(h_inplace, integrator)
 
     # test evaluation of history function
     @testset "evaluation" for idxs in (nothing, [2])

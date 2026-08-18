@@ -195,9 +195,7 @@ function test_convergence(
         # trajectories are ever reachable rather than the whole study's.
         _solutions[i] = if expected_value === nothing
             summarised = SciMLBase.calculate_ensemble_errors(
-                sol;
-                weak_timeseries_errors,
-                weak_dense_errors
+                sol; weak_timeseries_errors, weak_dense_errors
             )
             reduce_trajectories ? _drop_trajectories(summarised) : summarised
         else
@@ -235,9 +233,7 @@ function test_convergence(
     end
 
     return ConvergenceSimulation(
-        solutions, dts; auxdata,
-        additional_errors,
-        expected_value
+        solutions, dts; auxdata, additional_errors, expected_value
     )
 end
 
@@ -344,8 +340,7 @@ function analyticless_test_convergence(
         else
             # using NoiseWrapper doesn't lead to constant true_sol
             true_sol = solve(
-                prob, alg; adaptive, dt = test_dt,
-                save_noise = true
+                prob, alg; adaptive, dt = test_dt, save_noise = true
             )
             _sol = deepcopy(true_sol)
             W1 = NoiseWrapper(_sol.W)
@@ -370,9 +365,7 @@ function analyticless_test_convergence(
     _solutions = [EnsembleSolution(tmp_solutions[:, i], 0.0, true) for i in 1:length(dts)]
     solutions = [
         SciMLBase.calculate_ensemble_errors(
-            sim;
-            weak_timeseries_errors,
-            weak_dense_errors
+            sim; weak_timeseries_errors, weak_dense_errors
         )
             for sim in _solutions
     ]
@@ -382,10 +375,7 @@ function analyticless_test_convergence(
     for k in keys(solutions[1].weak_errors)
         additional_errors[k] = [sol.weak_errors[k] for sol in solutions]
     end
-    return ConvergenceSimulation(
-        solutions, dts; auxdata,
-        additional_errors
-    )
+    return ConvergenceSimulation(solutions, dts; auxdata, additional_errors)
 end
 
 function test_convergence(
@@ -395,10 +385,8 @@ function test_convergence(
     )
     N = length(dts)
     solutions = [
-        solve(
-            prob, alg; dt = dts[i], save_everystep,
-            adaptive, kwargs...
-        ) for i in 1:N
+        solve(prob, alg; dt = dts[i], save_everystep, adaptive, kwargs...)
+            for i in 1:N
     ]
     auxdata = Dict(:dts => dts)
     return ConvergenceSimulation(solutions, dts; auxdata)
@@ -412,10 +400,8 @@ function analyticless_test_convergence(
     true_sol = solve(prob, appxsol_setup[:alg]; appxsol_setup...)
     N = length(dts)
     _solutions = [
-        solve(
-            prob, alg; dt = dts[i], save_everystep,
-            adaptive, kwargs...
-        ) for i in 1:N
+        solve(prob, alg; dt = dts[i]; save_everystep, adaptive, kwargs...)
+            for i in 1:N
     ]
     solutions = [appxtrue(sol, true_sol) for sol in _solutions]
     auxdata = Dict(:dts => dts)
@@ -445,7 +431,7 @@ function calc𝒪estimates(error::Pair)
 end
 
 """
-length(simres::ConvergenceSimulation)
+    length(simres::ConvergenceSimulation)
 
 Returns the number of simultations in the Convergence Simulation
 """

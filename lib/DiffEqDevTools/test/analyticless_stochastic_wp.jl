@@ -75,8 +75,7 @@ test_dt = 1 / 10^4
 appxsol_setup = Dict(:alg => SRIW1(), :abstol => 1.0e-4, :reltol => 1.0e-4)
 wp = WorkPrecisionSet(
     prob2, abstols, reltols, setups, test_dt;
-    appxsol_setup,
-    numruns = 5, names = _names, error_estimate = :weak_final
+    appxsol_setup, numruns = 5, names = _names, error_estimate = :weak_final
 )
 
 println("Get sample errors")
@@ -121,9 +120,8 @@ seed = 100
 Random.seed!(seed)
 seeds = rand(UInt, numtraj)
 ensemble_prob = EnsembleProblem(
-    prob;
+    prob; prob_func,
     output_func = (sol, ctx) -> (h2(sol[1, end]), false),
-    prob_func
 )
 
 reltols = 1.0 ./ 4.0 .^ (1:4)

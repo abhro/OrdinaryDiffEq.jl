@@ -135,11 +135,11 @@ end
 x = 2.0
 
 function test_f2(p)
-  cb = ContinuousCallback((u,t,i) -> u[1], (integrator)->(@show(x,integrator.t);called=true;integrator.p[2]=zero(integrator.p[2])))
-  prob = ODEProblem(f2,eltype(p).([1.0,0.0]),eltype(p).((0.0,1.0)),copy(p))
-  integrator = init(prob,Tsit5(),abstol=1e-12,reltol=1e-12,callback=cb)
-  step!(integrator)
-  solve!(integrator).u[end]
+    cb = ContinuousCallback((u,t,i) -> u[1], (integrator)->(@show(x,integrator.t);called=true;integrator.p[2]=zero(integrator.p[2])))
+    prob = ODEProblem(f2,eltype(p).([1.0,0.0]),eltype(p).((0.0,1.0)),copy(p))
+    integrator = init(prob,Tsit5(),abstol=1e-12,reltol=1e-12,callback=cb)
+    step!(integrator)
+    solve!(integrator).u[end]
 end
 
 p = [2.0, x]
@@ -328,10 +328,7 @@ SOLVERS_FOR_AD = (
 )
 
 @testset "$alg can handle ForwardDiff.Dual in u0 with rtol=$rtol when iip=$iip" for (alg, rtol) in SOLVERS_FOR_AD,
-        iip in (
-            true,
-            false,
-        )
+        iip in (true, false)
 
     if iip
         f = (du, u, p, t) -> du .= -0.5 * u
@@ -341,21 +338,14 @@ SOLVERS_FOR_AD = (
 
     g = u0 -> begin
         tspan = (0.0, 1.0)
-        prob = ODEProblem(
-            f,
-            u0,
-            tspan
-        )
+        prob = ODEProblem(f, u0, tspan)
         solve(prob, alg(), abstol = 1.0e-14, reltol = 1.0e-14)(last(tspan))[1]
     end
     @test DI.gradient(g, AutoForwardDiff(), [10.0])[1] ≈ exp(-0.5) rtol = rtol
 end
 
 @testset "$alg can handle ForwardDiff.Dual in t0 with rtol=$rtol when iip=$iip" for (alg, rtol) in SOLVERS_FOR_AD,
-        iip in (
-            true,
-            false,
-        )
+        iip in (true, false)
 
     if iip
         f = (du, u, p, t) -> du .= -0.5 * u
@@ -367,11 +357,7 @@ end
     g = t0 -> begin
         tspan = (t0, 1.0)
         u0 = typeof(t0)[_u0]
-        prob = ODEProblem(
-            f,
-            u0,
-            tspan
-        )
+        prob = ODEProblem(f, u0, tspan)
         solve(prob, alg(), abstol = 1.0e-14, reltol = 1.0e-14)(last(tspan))[1]
     end
     @test DI.derivative(g, AutoForwardDiff(), 0.0) ≈ _u0 / 2 * exp(-0.5) rtol = rtol
@@ -420,7 +406,8 @@ function f_linexp(x)
     K = MatrixOperator(x)
     u0 = eltype(x).([1.0, 0.0])
     prob = ODEProblem(K, u0, (0.0, 10.0))
-    return sol = solve(prob, LinearExponential(), tstops = [0.0, 10.0])[2, :]
+    sol = solve(prob, LinearExponential(), tstops = [0.0, 10.0])[2, :]
+    return sol
 end
 K_ = [-1.0 0.0; 1.0 -1.0]
 @test isapprox(DI.jacobian(f_linexp, AutoForwardDiff(), K_)[2], 0.00226999, atol = 1.0e-6)
@@ -591,6 +578,7 @@ if JULIA_VERSION_ALLOWS_ENZYME_ZYGOTE
             du[1] = 10.0(u[2] - u[1])
             du[2] = u[1] * (28.0 - u[3]) - u[2]
             du[3] = u[1] * u[2] - (8 / 3) * u[3]
+            return
         end
 
         _saveat = SA[0.0, 0.25, 0.5, 0.75, 1.0, 1.25, 1.5, 1.75, 2.0, 2.25, 2.5, 2.75, 3.0]

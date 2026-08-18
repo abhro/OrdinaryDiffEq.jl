@@ -13,9 +13,7 @@ function stiff_split_problem(λ, u0, tspan)
         c = λ * u0[2] / (λ - 1)
         return [(u0[1] - c) * exp(-λ * t) + c * exp(-t), u0[2] * exp(-t)]
     end
-    return SplitODEProblem(
-            ODEFunction(ffast!; analytic), fslow!, u0, tspan
-        ), analytic
+    return SplitODEProblem(ODEFunction(ffast!; analytic), fslow!, u0, tspan), analytic
 end
 
 # Manufactured solution y(t) = [exp(-t), sin(t)] whose fast Jacobian

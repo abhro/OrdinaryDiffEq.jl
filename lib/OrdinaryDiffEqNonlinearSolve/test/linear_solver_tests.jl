@@ -134,8 +134,7 @@ p = collect(1.0:n)
 u0 = ones(n)
 tspan = [0.0, 1]
 odef = ODEFunction{true}(
-    fiip; jac, jac_prototype = jac(u0, p, 0.0),
-    paramjac
+    fiip; jac, jac_prototype = jac(u0, p, 0.0), paramjac
 )
 
 function g_helper(p; alg = Rosenbrock23(linsolve = LUFactorization()))

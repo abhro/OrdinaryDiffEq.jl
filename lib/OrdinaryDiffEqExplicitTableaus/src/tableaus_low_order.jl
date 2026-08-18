@@ -13,11 +13,8 @@ function Heun(::Type{T} = Float64, ::Type{T_time} = T) where {T, T_time}
     α = map(T, α)
     c = map(T_time, c)
     αEEst = map(T, αEEst)
-    return (
-        DiffEqBase.ExplicitRKTableau(
-            A, c, α, 2; αEEst, adaptiveorder = 1,
-            stability_size = 2.0
-        )
+    return DiffEqBase.ExplicitRKTableau(
+        A, c, α, 2; αEEst, adaptiveorder = 1, stability_size = 2.0
     )
 end
 
@@ -48,7 +45,7 @@ function Euler(::Type{T} = Float64, ::Type{T_time} = T) where {T, T_time}
     A = map(T, A)
     α = map(T, α)
     c = map(T_time, c)
-    return (DiffEqBase.ExplicitRKTableau(A, c, α, 1, stability_size = 2.0))
+    return DiffEqBase.ExplicitRKTableau(A, c, α, 1, stability_size = 2.0)
 end
 
 """
@@ -65,7 +62,7 @@ function Kutta3(::Type{T} = Float64, ::Type{T_time} = T) where {T, T_time}
     A = map(T, A)
     α = map(T, α)
     c = map(T_time, c)
-    return (DiffEqBase.ExplicitRKTableau(A, c, α, 3, stability_size = 2.5127453266183286))
+    return DiffEqBase.ExplicitRKTableau(A, c, α, 3, stability_size = 2.5127453266183286)
 end
 
 """
@@ -83,7 +80,7 @@ function RK4(::Type{T} = Float64, ::Type{T_time} = T) where {T, T_time}
     A = map(T, A)
     α = map(T, α)
     c = map(T_time, c)
-    return (DiffEqBase.ExplicitRKTableau(A, c, α, 4, stability_size = 2.785293563405282))
+    return DiffEqBase.ExplicitRKTableau(A, c, α, 4, stability_size = 2.785293563405282)
 end
 
 """
@@ -101,7 +98,7 @@ function RK438Rule(::Type{T} = Float64, ::Type{T_time} = T) where {T, T_time}
     A = map(T, A)
     α = map(T, α)
     c = map(T_time, c)
-    return (DiffEqBase.ExplicitRKTableau(A, c, α, 4, stability_size = 2.785293563405282))
+    return DiffEqBase.ExplicitRKTableau(A, c, α, 4, stability_size = 2.785293563405282)
 end
 
 """
@@ -148,7 +145,7 @@ function SSPRK22(::Type{T} = Float64, ::Type{T_time} = T) where {T, T_time}
     A = map(T, A)
     α = map(T, α)
     c = map(T_time, c)
-    return (DiffEqBase.ExplicitRKTableau(A, c, α, 2, stability_size = -2.0))
+    return DiffEqBase.ExplicitRKTableau(A, c, α, 2, stability_size = -2.0)
 end
 
 """
@@ -165,7 +162,7 @@ function SSPRK33(::Type{T} = Float64, ::Type{T_time} = T) where {T, T_time}
     A = map(T, A)
     α = map(T, α)
     c = map(T_time, c)
-    return (DiffEqBase.ExplicitRKTableau(A, c, α, 3, stability_size = 2.5127453266183286))
+    return DiffEqBase.ExplicitRKTableau(A, c, α, 3, stability_size = 2.5127453266183286)
 end
 
 """
@@ -183,7 +180,7 @@ function SSPRK43(::Type{T} = Float64, ::Type{T_time} = T) where {T, T_time}
     A = map(T, A)
     α = map(T, α)
     c = map(T_time, c)
-    return (DiffEqBase.ExplicitRKTableau(A, c, α, 3, stability_size = 5.149486147774043))
+    return DiffEqBase.ExplicitRKTableau(A, c, α, 3, stability_size = 5.149486147774043)
 end
 
 """
@@ -210,7 +207,7 @@ function SSPRK104(::Type{T} = Float64, ::Type{T_time} = T) where {T, T_time}
     A = map(T, A)
     α = map(T, α)
     c = map(T_time, c)
-    return (DiffEqBase.ExplicitRKTableau(A, c, α, 4, stability_size = 13.917047464637367))
+    return DiffEqBase.ExplicitRKTableau(A, c, α, 4, stability_size = 13.917047464637367)
 end
 
 """
@@ -227,5 +224,5 @@ function LobattoIIICStar2(::Type{T} = Float64, ::Type{T_time} = T) where {T, T_t
     A = map(T, A)
     α = map(T, α)
     c = map(T_time, c)
-    return (DiffEqBase.ExplicitRKTableau(A, c, α, 2, stability_size = -2.0))
+    return DiffEqBase.ExplicitRKTableau(A, c, α, 2, stability_size = -2.0)
 end

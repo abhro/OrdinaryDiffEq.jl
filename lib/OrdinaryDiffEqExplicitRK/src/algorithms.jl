@@ -1,5 +1,5 @@
 """
-constructDormandPrince()
+    constructDormandPrince()
 
 Constructs the tableau object for the Dormand-Prince Order 4/5 method.
 """
@@ -251,7 +251,7 @@ function constructTsit5ExplicitRK(::Type{T}, ::Type{T_time} = T) where {T, T_tim
 end
 
 """
-ODE_DEFAULT_TABLEAU
+    ODE_DEFAULT_TABLEAU
 
 Sets the default tableau for the ODE solver. Currently Dormand-Prince 4/5.
 """

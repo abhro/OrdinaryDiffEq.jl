@@ -34,9 +34,7 @@ using OrdinaryDiffEqMultirate, DiffEqDevTools, Test, LinearAlgebra
         @testset "Convergence" begin
             analytic(u0, p, t) = u0 * exp(-3t)
             prob = SplitODEProblem(
-                SplitFunction(
-                    (u, p, t) -> -2u, (u, p, t) -> -u; analytic
-                ),
+                SplitFunction((u, p, t) -> -2u, (u, p, t) -> -u; analytic),
                 1.0, (0.0, 1.0)
             )
             dts = 1 ./ 2 .^ (6:-1:2)
@@ -88,9 +86,7 @@ using OrdinaryDiffEqMultirate, DiffEqDevTools, Test, LinearAlgebra
         @testset "Convergence" begin
             analytic(u0, p, t) = u0 * exp(-3t)
             prob = SplitODEProblem(
-                SplitFunction(
-                    (u, p, t) -> -2u, (u, p, t) -> -u; analytic
-                ),
+                SplitFunction((u, p, t) -> -2u, (u, p, t) -> -u; analytic),
                 1.0, (0.0, 1.0)
             )
             dts = 1 ./ 2 .^ (6:-1:2)
@@ -134,9 +130,7 @@ end
     @testset "Convergence" begin
         analytic(u0, p, t) = u0 * exp(-3t)
         prob = SplitODEProblem(
-            SplitFunction(
-                (u, p, t) -> -2u, (u, p, t) -> -u; analytic
-            ),
+            SplitFunction((u, p, t) -> -2u, (u, p, t) -> -u; analytic),
             1.0, (0.0, 1.0)
         )
         dts = 1 ./ 2 .^ (6:-1:2)
@@ -178,9 +172,7 @@ end
     @testset "Convergence" begin
         analytic(u0, p, t) = u0 * exp(-3t)
         prob = SplitODEProblem(
-            SplitFunction(
-                (u, p, t) -> -2u, (u, p, t) -> -u; analytic
-            ),
+            SplitFunction((u, p, t) -> -2u, (u, p, t) -> -u; analytic),
             1.0, (0.0, 1.0)
         )
         dts = 1 ./ 2 .^ (6:-1:2)

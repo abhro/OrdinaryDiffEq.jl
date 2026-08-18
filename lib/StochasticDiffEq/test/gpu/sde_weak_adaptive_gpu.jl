@@ -57,11 +57,8 @@ f_true1(t) = t^3 - 3 * t^2 + 2 * t
 prob1 = SDEProblem(f1!, g1!, u₀, tspan)
 ensemble_prob1 = EnsembleProblem(
     prob1;
-    output_func,
-    prob_func,
-    reduction,
-    u_init = Vector{eltype(prob1.u0)}([0.0]),
-    safetycopy = false
+    output_func, prob_func, reduction,
+    u_init = Vector{eltype(prob1.u0)}([0.0]), safetycopy = false
 )
 
 # prob 2
@@ -89,8 +86,7 @@ prob2 = SDEProblem(f2!, g2!, u₀, tspan)
 ensemble_prob2 = EnsembleProblem(
     prob2;
     output_func = (sol, ctx) -> (h2.(sol), false),
-    prob_func,
-    reduction,
+    prob_func, reduction,
     u_init = Vector{eltype(prob2.u0)}([0.0, 0.0]),
     safetycopy = false
 )

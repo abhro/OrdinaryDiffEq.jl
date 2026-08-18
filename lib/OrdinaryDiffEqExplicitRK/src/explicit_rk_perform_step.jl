@@ -475,8 +475,10 @@ end
 end
 
 """
-    generic_rk_interpolant!(out, Θ, dt, y₀, k, B_interp, bi;
-        idxs = nothing, order = 0)
+    generic_rk_interpolant!(
+        out, Θ, dt, y₀, k, B_interp, bi;
+        idxs = nothing, order = 0
+    )
 
 Evaluate the dense-output polynomial for an explicit Runge-Kutta method into
 the preallocated `out` array.

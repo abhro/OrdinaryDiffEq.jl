@@ -117,39 +117,19 @@ prior = ComponentArray(;
 )
 
 r_space = collect(range(0.0, 2.0, length = 15))
-computeparams = (;
-    Δr = r_space[2],
-    r_space,
-    countorderapprox = 2,
-)
-parameters = (;
-    prior,
-    compute = computeparams,
-)
+computeparams = (; Δr = r_space[2], r_space, countorderapprox = 2)
+parameters = (; prior, compute = computeparams)
 
 dudt = enclosethetimedifferential(parameters)
 IC = ones(length(r_space) + 3)
-odeprob = ODEProblem(
-    dudt,
-    IC,
-    (0, 2.1),
-    parameters.prior
-);
+odeprob = ODEProblem(dudt, IC, (0, 2.1), parameters.prior);
 du0 = copy(odeprob.u0);
 # Hardcoded sparsity pattern for 15 spatial points + 3 state variables (18x18 matrix)
 I = [1, 2, 16, 18, 1, 2, 3, 18, 2, 3, 4, 18, 3, 4, 5, 18, 4, 5, 6, 18, 5, 6, 7, 18, 6, 7, 8, 18, 7, 8, 9, 18, 8, 9, 10, 18, 9, 10, 11, 18, 10, 11, 12, 18, 11, 12, 13, 18, 12, 13, 14, 18, 13, 14, 15, 18, 14, 15, 17, 18, 1, 16, 17, 15, 17, 18, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 18]
 J = [1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 7, 8, 8, 8, 8, 9, 9, 9, 9, 10, 10, 10, 10, 11, 11, 11, 11, 12, 12, 12, 12, 13, 13, 13, 13, 14, 14, 14, 14, 15, 15, 15, 15, 16, 16, 16, 17, 17, 17, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18]
 jac_sparsity = sparse(I, J, ones(Bool, length(I)), 18, 18);
-f = ODEFunction(
-    dudt;
-    jac_prototype = float.(jac_sparsity)
-);
-sparseodeprob = ODEProblem(
-    f,
-    odeprob.u0,
-    (0, 2.1),
-    parameters.prior
-);
+f = ODEFunction(dudt; jac_prototype = float.(jac_sparsity));
+sparseodeprob = ODEProblem(f, odeprob.u0, (0, 2.1), parameters.prior);
 
 solve(odeprob, TRBDF2());
 solve(sparseodeprob, TRBDF2());

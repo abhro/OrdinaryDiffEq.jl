@@ -349,8 +349,10 @@ function WorkPrecision(
 end
 
 """
-    WorkPrecisionSet(prob, abstols, reltols, setups; error_estimates = nothing,
-        timeout = nothing, kwargs...)
+    WorkPrecisionSet(
+        prob, abstols, reltols, setups; error_estimates = nothing,
+        timeout = nothing, kwargs...
+    )
 
 Build one [`WorkPrecision`](@ref) result for each solver configuration in `setups` so
 their work-precision curves can be compared. Each setup is a dictionary containing an
@@ -436,15 +438,13 @@ function WorkPrecision(
             if dts === nothing
                 sol = solve(
                     _prob, alg; kwargs..., abstol = abstols[i],
-                    reltol = reltols[i], timeseries_errors,
-                    dense_errors
+                    reltol = reltols[i], timeseries_errors, dense_errors
                 )
             else
                 sol = solve(
                     _prob, alg; kwargs..., abstol = abstols[i],
                     reltol = reltols[i], dt = dts[i],
-                    timeseries_errors,
-                    dense_errors
+                    timeseries_errors, dense_errors
                 )
             end
 
@@ -576,15 +576,13 @@ function WorkPrecision(
             if dts === nothing
                 sol = solve(
                     _prob, alg; kwargs..., abstol = abstols[i],
-                    reltol = reltols[i], timeseries_errors,
-                    dense_errors
+                    reltol = reltols[i], timeseries_errors, dense_errors
                 )
             else
                 sol = solve(
                     _prob, alg; kwargs..., abstol = abstols[i],
                     reltol = reltols[i], dt = dts[i],
-                    timeseries_errors,
-                    dense_errors
+                    timeseries_errors, dense_errors
                 )
             end
 
@@ -783,11 +781,8 @@ function WorkPrecisionSet(
 
         wps[i] = WorkPrecision(
             prob, setups[i][:alg], _abstols, _reltols, _dts;
-            appxsol,
-            error_estimate,
-            timeout,
-            timeseries_errors,
-            dense_errors,
+            appxsol, error_estimate, timeout,
+            timeseries_errors, dense_errors,
             tags = _setup_tags(setups[i]),
             auto_tags = get(setups[i], :auto_tags, true),
             name = names[i], kwargs..., filtered_setup...
@@ -854,8 +849,7 @@ function _calculate_error!(
             _prob, setups[k][:alg];
             kwargs..., filtered_setup..., abstol = _abstols[j],
             reltol = _reltols[j], dt = _dts[j],
-            timeseries_errors,
-            dense_errors
+            timeseries_errors, dense_errors
         )
         SciMLBase.has_analytic(prob.f) ? err_sol = sol : err_sol = appxtrue(sol, true_sol)
         tmp_solutions[i, j, k] = err_sol
@@ -912,12 +906,11 @@ function WorkPrecisionSet(
     solutions = [
         [
             SciMLBase.calculate_ensemble_errors(
-                sim;
-                weak_timeseries_errors,
-                weak_dense_errors
+                sim; weak_timeseries_errors, weak_dense_errors
             )
                 for sim in sol_k
-        ] for sol_k in _solutions_k
+        ]
+            for sol_k in _solutions_k
     ]
     if error_estimate ∈ WEAK_ERRORS
         errors = [[solutions[j][i].weak_errors for i in 1:M] for j in 1:N]
@@ -1170,11 +1163,8 @@ function WorkPrecisionSet(
 
         wps[i] = WorkPrecision(
             prob, setups[i][:alg], _abstols, _reltols, _dts;
-            appxsol,
-            error_estimate,
-            timeout,
-            timeseries_errors,
-            dense_errors,
+            appxsol, error_estimate,
+            timeout, timeseries_errors, dense_errors,
             tags = _setup_tags(setups[i]),
             auto_tags = get(setups[i], :auto_tags, true),
             name = names[i], kwargs..., filtered_setup...

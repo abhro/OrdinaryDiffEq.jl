@@ -82,11 +82,8 @@ function EnrightVerner7(::Type{T} = Float64, ::Type{T_time} = T) where {T, T_tim
     α = map(T, α)
     c = map(T_time, c)
     αEEst = map(T, αEEst)
-    return (
-        DiffEqBase.ExplicitRKTableau(
-            A, c, α, 7; αEEst, adaptiveorder = 6,
-            stability_size = 4.499873870264921
-        )
+    return DiffEqBase.ExplicitRKTableau(
+        A, c, α, 7; αEEst, adaptiveorder = 6, stability_size = 4.499873870264921
     )
 end
 
@@ -184,11 +181,8 @@ function VernerRobust7(::Type{T} = Float64, ::Type{T_time} = T) where {T, T_time
     α = map(T, α)
     c = map(T_time, c)
     αEEst = map(T, αEEst)
-    return (
-        DiffEqBase.ExplicitRKTableau(
-            A, c, α, 7; αEEst, adaptiveorder = 6,
-            stability_size = 4.635489309972309
-        )
+    return DiffEqBase.ExplicitRKTableau(
+        A, c, α, 7; αEEst, adaptiveorder = 6, stability_size = 4.635489309972309
     )
 end
 
@@ -304,11 +298,8 @@ function VernerEfficient7(::Type{T} = Float64, ::Type{T_time} = T) where {T, T_t
     α = map(T, α)
     c = map(T_time, c)
     αEEst = map(T, αEEst)
-    return (
-        DiffEqBase.ExplicitRKTableau(
-            A, c, α, 7; αEEst, adaptiveorder = 6,
-            stability_size = 4.640792701835124
-        )
+    return DiffEqBase.ExplicitRKTableau(
+        A, c, α, 7; αEEst, adaptiveorder = 6, stability_size = 4.640792701835124
     )
 end
 
@@ -427,11 +418,9 @@ function SharpVerner7(::Type{T} = Float64, ::Type{T_time} = T) where {T, T_time}
     α = map(T, α)
     c = map(T_time, c)
     αEEst = map(T, αEEst)
-    return (
-        DiffEqBase.ExplicitRKTableau(
-            A, c, α, 7; αEEst, adaptiveorder = 6, fsal = true,
-            stability_size = 4.622084785418665
-        )
+    return DiffEqBase.ExplicitRKTableau(
+        A, c, α, 7; αEEst, adaptiveorder = 6, fsal = true,
+        stability_size = 4.622084785418665
     )
 end
 
@@ -543,11 +532,8 @@ function SharpSmart7(::Type{T} = Float64, ::Type{T_time} = T) where {T, T_time}
     α = map(T, α)
     c = map(T_time, c)
     αEEst = map(T, αEEst)
-    return (
-        DiffEqBase.ExplicitRKTableau(
-            A, c, α, 7; αEEst, adaptiveorder = 6,
-            stability_size = 3.8994534847171285
-        )
+    return DiffEqBase.ExplicitRKTableau(
+        A, c, α, 7; αEEst, adaptiveorder = 6, stability_size = 3.8994534847171285
     )
 end
 
@@ -680,11 +666,8 @@ function TanakaYamashitaEfficient7(::Type{T} = Float64, ::Type{T_time} = T) wher
     α = map(T, α)
     c = map(T_time, c)
     αEEst = map(T, αEEst)
-    return (
-        DiffEqBase.ExplicitRKTableau(
-            A, c, α, 7; αEEst, adaptiveorder = 6,
-            stability_size = 4.912538831797948
-        )
+    return DiffEqBase.ExplicitRKTableau(
+        A, c, α, 7; αEEst, adaptiveorder = 6, stability_size = 4.912538831797948
     )
 end
 
@@ -801,11 +784,8 @@ function TanakaYamashitaStable7(::Type{T} = Float64, ::Type{T_time} = T) where {
     α = map(T, α)
     c = map(T_time, c)
     αEEst = map(T, αEEst)
-    return (
-        DiffEqBase.ExplicitRKTableau(
-            A, c, α, 7; αEEst, adaptiveorder = 6,
-            stability_size = 9.29902700964581
-        )
+    return DiffEqBase.ExplicitRKTableau(
+        A, c, α, 7; αEEst, adaptiveorder = 6, stability_size = 9.29902700964581
     )
 end
 
@@ -898,7 +878,7 @@ function CooperVerner8(::Type{T} = Float64, ::Type{T_time} = T) where {T, T_time
     A = map(T, A)
     α = map(T, α)
     c = map(T_time, c)
-    return (DiffEqBase.ExplicitRKTableau(A, c, α, 8, stability_size = 4.142567934840205))
+    return DiffEqBase.ExplicitRKTableau(A, c, α, 8, stability_size = 4.142567934840205)
 end
 
 """
@@ -990,7 +970,7 @@ function CooperVerner82(::Type{T} = Float64, ::Type{T_time} = T) where {T, T_tim
     A = map(T, A)
     α = map(T, α)
     c = map(T_time, c)
-    return (DiffEqBase.ExplicitRKTableau(A, c, α, 8, stability_size = 3.715376401690181))
+    return DiffEqBase.ExplicitRKTableau(A, c, α, 8, stability_size = 3.715376401690181)
 end
 
 """
@@ -1084,7 +1064,7 @@ function Curtis8(::Type{T} = Float64, ::Type{T_time} = T) where {T, T_time}
     A = map(T, A)
     α = map(T, α)
     c = map(T_time, c)
-    return (DiffEqBase.ExplicitRKTableau(A, c, α, 8, stability_size = 5.6599472616274795))
+    return DiffEqBase.ExplicitRKTableau(A, c, α, 8, stability_size = 5.6599472616274795)
 end
 
 """

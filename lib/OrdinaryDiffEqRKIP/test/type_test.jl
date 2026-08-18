@@ -34,9 +34,7 @@ function test(A_prototype, u_prototype, iip; use_ldiv = false, broken = false)
             if broken
                 # Wrap in try-catch since broken tests may throw during solve
                 try
-                    sol = solve(
-                        spltode, RKIP(; use_ldiv); reltol, abstol = 1.0e-10
-                    )
+                    sol = solve(spltode, RKIP(; use_ldiv); reltol, abstol = 1.0e-10)
                     @test_broken isapprox(
                         sol(t[end]), splfc.analytic(u0, nothing, t[end]);
                         rtol = 1.0e2 * reltol, atol = 1.0e-8
@@ -45,9 +43,7 @@ function test(A_prototype, u_prototype, iip; use_ldiv = false, broken = false)
                     @test_broken false  # Expected to fail
                 end
             else
-                sol = solve(
-                    spltode, RKIP(; use_ldiv); reltol, abstol = 1.0e-10
-                )
+                sol = solve(spltode, RKIP(; use_ldiv); reltol, abstol = 1.0e-10)
                 @test isapprox(
                     sol(t[end]), splfc.analytic(u0, nothing, t[end]);
                     rtol = 1.0e2 * reltol, atol = 1.0e-8

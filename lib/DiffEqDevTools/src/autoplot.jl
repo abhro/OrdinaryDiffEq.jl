@@ -1,6 +1,8 @@
 """
-    autoplot(wp_set::WorkPrecisionSet; families = nothing, reference_tags = nothing,
-        best_n = 2) -> Dict{String, WorkPrecisionSet}
+    autoplot(
+            wp_set::WorkPrecisionSet; families = nothing, reference_tags = nothing,
+            best_n = 2
+        ) -> Dict{String, WorkPrecisionSet}
 
 Split one tagged [`WorkPrecisionSet`](@ref) into the subsets a benchmark page usually
 plots, without re-solving anything:

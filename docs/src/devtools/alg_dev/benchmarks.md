@@ -30,7 +30,7 @@ setups = [
     Dict(:alg => dopri5())
 ]
 names = ["DifferentialEquations"; "ODE"; "ODEInterface"]
-shoot = Shootout(prob, setups; dt = 1 / 2^(10), names = names)
+shoot = Shootout(prob, setups; dt = 1 / 2^10, names)
 ```
 
 Note that keyword arguments applied to `Shootout` are applied to every run, so

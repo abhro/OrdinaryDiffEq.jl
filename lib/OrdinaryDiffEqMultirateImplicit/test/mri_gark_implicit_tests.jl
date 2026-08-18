@@ -36,9 +36,7 @@ import DiffEqBase
     @testset "Stiff slow component" begin
         analytic(u0, p, t) = u0 * exp(-51t)
         prob = SplitODEProblem(
-            SplitFunction(
-                (u, p, t) -> -u, (u, p, t) -> -50u; analytic
-            ),
+            SplitFunction((u, p, t) -> -u, (u, p, t) -> -50u; analytic),
             1.0, (0.0, 1.0)
         )
         sol = solve(prob, MRIGARKIRK21a(m = 4), dt = 0.02, adaptive = false)
@@ -50,9 +48,7 @@ import DiffEqBase
     @testset "Convergence" begin
         analytic(u0, p, t) = u0 * exp(-3t)
         prob = SplitODEProblem(
-            SplitFunction(
-                (u, p, t) -> -2u, (u, p, t) -> -u; analytic
-            ),
+            SplitFunction((u, p, t) -> -2u, (u, p, t) -> -u; analytic),
             1.0, (0.0, 1.0)
         )
         dts = 1 ./ 2 .^ (6:-1:2)
@@ -94,9 +90,7 @@ end
     @testset "Stiff slow component" begin
         analytic(u0, p, t) = u0 * exp(-51t)
         prob = SplitODEProblem(
-            SplitFunction(
-                (u, p, t) -> -u, (u, p, t) -> -50u; analytic
-            ),
+            SplitFunction((u, p, t) -> -u, (u, p, t) -> -50u; analytic),
             1.0, (0.0, 1.0)
         )
         sol = solve(prob, MRIGARKESDIRK34a(m = 4), dt = 0.02, adaptive = false)
@@ -108,9 +102,7 @@ end
     @testset "Convergence" begin
         analytic(u0, p, t) = u0 * exp(-3t)
         prob = SplitODEProblem(
-            SplitFunction(
-                (u, p, t) -> -2u, (u, p, t) -> -u; analytic
-            ),
+            SplitFunction((u, p, t) -> -2u, (u, p, t) -> -u; analytic),
             1.0, (0.0, 1.0)
         )
         dts = 1 ./ 2 .^ (7:-1:3)
@@ -152,9 +144,7 @@ end
     @testset "Stiff slow component" begin
         analytic(u0, p, t) = u0 * exp(-51t)
         prob = SplitODEProblem(
-            SplitFunction(
-                (u, p, t) -> -u, (u, p, t) -> -50u; analytic
-            ),
+            SplitFunction((u, p, t) -> -u, (u, p, t) -> -50u; analytic),
             1.0, (0.0, 1.0)
         )
         sol = solve(prob, MRIGARKESDIRK46a(m = 4), dt = 0.02, adaptive = false)
@@ -178,9 +168,7 @@ end
     @testset "Convergence" begin
         analytic(u0, p, t) = u0 * exp(-3t)
         prob = SplitODEProblem(
-            SplitFunction(
-                (u, p, t) -> -2u, (u, p, t) -> -u; analytic
-            ),
+            SplitFunction((u, p, t) -> -2u, (u, p, t) -> -u; analytic),
             1.0, (0.0, 1.0)
         )
         dts = 1 ./ 2 .^ (8:-1:4)

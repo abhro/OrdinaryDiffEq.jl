@@ -164,9 +164,8 @@ h1(z) = z^3 - 6 * z^2 + 8 * z
 
 prob = SDEProblem(f1!, g1!, u₀, tspan)
 ensemble_prob = EnsembleProblem(
-    prob;
+    prob; prob_func,
     output_func = (sol, ctx) -> (h1(asinh(sol.u[end][1])), false),
-    prob_func
 )
 
 numtraj = Int(6.0e6)

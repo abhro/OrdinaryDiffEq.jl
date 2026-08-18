@@ -21,8 +21,7 @@ condition(u, t, integrator) = u
 affect!(integrator) = nothing
 function cbf(idx)
     return ContinuousCallback(
-        condition,
-        affect!, nothing, save_positions = (false, true), idxs = idx
+        condition, affect!, nothing, save_positions = (false, true), idxs = idx
     )
 end
 z0 = SVector{4}(7.1989885061904335, -0.165912283356219, 0.0, -3.63534900748947)

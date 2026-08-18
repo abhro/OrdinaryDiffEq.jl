@@ -66,8 +66,7 @@ using Test
 
     @testset "DFBDF step!(save_everystep=false) Runtime Allocation Check" begin
         long_dae_prob = DAEProblem(
-            dae_f!, du0, [1.0, 1.0], (0.0, 100.0);
-            differential_vars
+            dae_f!, du0, [1.0, 1.0], (0.0, 100.0); differential_vars
         )
         integrator = init(
             long_dae_prob, DFBDF(), dt = 0.1, save_everystep = false,

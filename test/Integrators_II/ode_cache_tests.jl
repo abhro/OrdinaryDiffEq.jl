@@ -26,7 +26,7 @@ broken_CACHE_TEST_ALGS = [
 using InteractiveUtils
 
 NON_IMPLICIT_ALGS = filter(
-    (x) -> isconcretetype(x) && !OrdinaryDiffEqCore.isimplicit(x()),
+    x -> isconcretetype(x) && !OrdinaryDiffEqCore.isimplicit(x()),
     union(
         subtypes(OrdinaryDiffEqCore.OrdinaryDiffEqAlgorithm),
         subtypes(OrdinaryDiffEqCore.OrdinaryDiffEqAdaptiveAlgorithm)
@@ -74,13 +74,15 @@ sol = solve(prob, KenCarp4(); callback, dt = 1 / 2)
 @test length(sol.u[end]) > 1
 sol = solve(prob, TRBDF2(); callback, dt = 1 / 2)
 @test length(sol.u[end]) > 1
-sol = solve(
-    prob, TRBDF2(linsolve = LinearSolve.KrylovJL_GMRES());
-    callback
-)
+sol = solve(prob, TRBDF2(linsolve = LinearSolve.KrylovJL_GMRES()); callback)
 @test length(sol.u[end]) > 1
 sol = solve(
     prob, TRBDF2(nlsolve = NonlinearSolveAlg(NewtonRaphson()));
+    callback, dt = 1 / 2
+)
+@test length(sol.u[end]) > 1
+sol = solve(
+    prob, KenCarp4(nlsolve = NonlinearSolveAlg(NewtonRaphson()));
     callback, dt = 1 / 2
 )
 @test length(sol.u[end]) > 1
@@ -175,8 +177,7 @@ affect!_adapt = function (integrator)
     return nothing
 end
 callback_adapt = DiscreteCallback(
-    condition_adapt, affect!_adapt,
-    save_positions = (false, false)
+    condition_adapt, affect!_adapt, save_positions = (false, false)
 )
 
 for alg in CACHE_TEST_ALGS

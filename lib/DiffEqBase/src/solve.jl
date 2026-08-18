@@ -128,8 +128,7 @@ Base.@constprop :aggressive function init_up(prob::AbstractDEProblem, sensealg, 
     end
     return if isnothing(alg) || !(alg isa AbstractDEAlgorithm) # Default algorithm handling
         _prob = get_concrete_problem(
-            prob, !(prob isa DiscreteProblem); alg, u0,
-            p, kwargs...
+            prob, !(prob isa DiscreteProblem); alg, u0, p, kwargs...
         )
         init_call(_prob, args...; kwargs...)
     else
@@ -645,8 +644,7 @@ Base.@constprop :aggressive function solve_up(
     end
     return if isnothing(alg) || !(alg isa AbstractDEAlgorithm) # Default algorithm handling
         _prob = get_concrete_problem(
-            prob, !(prob isa DiscreteProblem); alg, u0,
-            p, kwargs...
+            prob, !(prob isa DiscreteProblem); alg, u0, p, kwargs...
         )
         solve_call(_prob, args...; kwargs...)
     else
@@ -1397,8 +1395,7 @@ function _solve_adjoint(
     alg = extract_alg(args, kwargs, prob.kwargs)
     if isnothing(alg) || !(alg isa AbstractDEAlgorithm) # Default algorithm handling
         _prob = get_concrete_problem(
-            prob, !(prob isa DiscreteProblem); alg, u0,
-            p, kwargs...
+            prob, !(prob isa DiscreteProblem); alg, u0, p, kwargs...
         )
     else
         _prob = get_concrete_problem(prob, isadaptive(alg); alg, u0, p, kwargs...)
@@ -1424,8 +1421,7 @@ function _solve_forward(
     alg = extract_alg(args, kwargs, prob.kwargs)
     if isnothing(alg) || !(alg isa AbstractDEAlgorithm) # Default algorithm handling
         _prob = get_concrete_problem(
-            prob, !(prob isa DiscreteProblem); alg, u0,
-            p, kwargs...
+            prob, !(prob isa DiscreteProblem); alg, u0, p, kwargs...
         )
     else
         _prob = get_concrete_problem(prob, isadaptive(alg); alg, u0, p, kwargs...)

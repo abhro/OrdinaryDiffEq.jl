@@ -39,9 +39,8 @@ seeds = rand(UInt, numtraj)
 
 prob = SDEProblem(f, g, u₀, tspan, p)
 ensemble_prob = EnsembleProblem(
-    prob;
+    prob; prob_func,
     output_func = (sol, ctx) -> (h1(sol.u[end]), false),
-    prob_func
 )
 
 sim = test_convergence(
@@ -68,9 +67,8 @@ p = [3 // 2, 1 // 100]
 
 prob = SDEProblem(f1!, g1!, u₀, tspan, p)
 ensemble_prob = EnsembleProblem(
-    prob;
+    prob; prob_func,
     output_func = (sol, ctx) -> (h1(sol.u[end][1]), false),
-    prob_func
 )
 
 numtraj = Int(2.0e4)
@@ -128,9 +126,8 @@ h2(z) = z
 
 prob = SDEProblem(f2!, g2!, u₀, tspan, p, noise_rate_prototype = zeros(4, 4))
 ensemble_prob = EnsembleProblem(
-    prob;
+    prob; prob_func,
     output_func = (sol, ctx) -> (h2(sol.u[end][1]), false),
-    prob_func
 )
 
 numtraj = Int(1.0e5)
@@ -171,9 +168,8 @@ h3(z) = z^2 # == 1//10**exp(3//2*t) if h3(z) = z and  == 1//100**exp(301//100*t)
 
 prob = SDEProblem(f3!, g3!, u₀, tspan)
 ensemble_prob = EnsembleProblem(
-    prob;
+    prob; prob_func,
     output_func = (sol, ctx) -> (h3(sol.u[end][1]), false),
-    prob_func
 )
 
 numtraj = Int(5.0e4)
@@ -208,9 +204,8 @@ seeds = rand(UInt, numtraj)
 
 prob = SDEProblem(fadd, gadd, u₀, tspan, p)
 ensemble_prob = EnsembleProblem(
-    prob;
+    prob; prob_func,
     output_func = (sol, ctx) -> (sol.u[end], false),
-    prob_func
 )
 
 sim = test_convergence(
@@ -250,16 +245,15 @@ gadd!(du, u, p, t) = @.(du = p[2])
 
 prob = SDEProblem(fadd!, gadd!, u₀, tspan, p)
 ensemble_prob = EnsembleProblem(
-    prob;
+    prob; prob_func,
     output_func = (sol, ctx) -> (sol.u[end][1], false),
-    prob_func
 )
 
 sim = test_convergence(
     dts, ensemble_prob, PL1WM(),
     save_everystep = false, trajectories = numtraj, save_start = false, adaptive = false,
     weak_timeseries_errors = false, weak_dense_errors = false,
-    expected_value = u₀ .* exp(1.0 * (p[1])),
+    expected_value = u₀ .* exp(1.0 * p[1]),
     retain_solutions = true          # compared trajectory-by-trajectory below
 )
 
@@ -270,7 +264,7 @@ sim1 = test_convergence(
     dts, ensemble_prob, PL1WMA(),
     save_everystep = false, trajectories = numtraj, save_start = false, adaptive = false,
     weak_timeseries_errors = false, weak_dense_errors = false,
-    expected_value = u₀ .* exp(1.0 * (p[1])),
+    expected_value = u₀ .* exp(1.0 * p[1]),
     retain_solutions = true          # compared trajectory-by-trajectory below
 )
 

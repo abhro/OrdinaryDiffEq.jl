@@ -792,8 +792,7 @@ end
 
     if is_always_new(nlsolver) || (iter == 1 && new_W)
         linres = dolinsolve(
-            integrator, linsolve; A = W, b = _vec(b), linu = _vec(dz),
-            reltol
+            integrator, linsolve; A = W, b = _vec(b), linu = _vec(dz), reltol
         )
     else
         linres = dolinsolve(

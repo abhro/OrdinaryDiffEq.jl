@@ -7,21 +7,21 @@ using Test
     # define functions (Hutchinson's equation)
     function f(du, u, h, p, t)
         du[1] = u[1] * (1 - h(p, t - 1)[1])
-        nothing
+        return
     end
 
     njacs = Ref(0)
     function jac(J, u, h, p, t)
         njacs[] += 1
         J[1, 1] = 1 - h(p, t - 1)[1]
-        nothing
+        return
     end
 
     nWfact_ts = Ref(0)
     function Wfact_t(W, u, h, p, dtgamma, t)
         nWfact_ts[] += 1
         W[1, 1] = 1 - h(p, t - 1)[1] - inv(dtgamma)
-        nothing
+        return
     end
 
     h(p, t) = [0.0]
@@ -81,13 +81,13 @@ end
     njacs = Ref(0)
     function jac(u, h, p, t)
         njacs[] += 1
-        reshape(1 .- h(p, t - 1), 1, 1)
+        return reshape(1 .- h(p, t - 1), 1, 1)
     end
 
     nWfact_ts = Ref(0)
     function Wfact_t(u, h, p, dtgamma, t)
         nWfact_ts[] += 1
-        reshape((1 - inv(dtgamma)) .- h(p, t - 1), 1, 1)
+        return reshape((1 - inv(dtgamma)) .- h(p, t - 1), 1, 1)
     end
 
     h(p, t) = [0.0]

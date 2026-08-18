@@ -13,10 +13,10 @@ function BDF_docstring(
         """ * "\n" * extra_keyword_default
 
     keyword_default_description = """
-        - `autodiff`: Uses [ADTypes.jl](https://sciml.github.io/ADTypes.jl/stable/) 
+        - `autodiff`: Uses [ADTypes.jl](https://sciml.github.io/ADTypes.jl/stable/)
             to specify whether to use automatic differentiation via
             [ForwardDiff.jl](https://github.com/JuliaDiff/ForwardDiff.jl) or finite
-            differencing via [FiniteDiff.jl](https://github.com/JuliaDiff/FiniteDiff.jl). 
+            differencing via [FiniteDiff.jl](https://github.com/JuliaDiff/FiniteDiff.jl).
             Defaults to `AutoForwardDiff()` for automatic differentiation, which by default uses
             `chunksize = 0`, and thus uses the internal ForwardDiff.jl algorithm for the choice.
             To use `FiniteDiff.jl`, the `AutoFiniteDiff()` ADType can be used, which has a keyword argument

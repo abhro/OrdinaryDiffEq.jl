@@ -176,8 +176,8 @@ end
     bdf_restart_estimates!(cache)
 
 Restart the order and constant-step estimates for a step that straddles a derivative
-discontinuity, where the history behind it and the solution ahead belong to different
-regimes. We do this because the BDF step-size and order logic is based on the history of the solution,
+discontinuity, where the history behind it and the solution ahead belong to different regimes.
+We do this because the BDF step-size and order logic is based on the history of the solution,
 and we have effectively entered a new regime where old estimates no longer apply.
 """
 function bdf_restart_estimates!(cache)

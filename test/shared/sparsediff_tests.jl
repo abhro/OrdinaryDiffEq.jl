@@ -52,7 +52,7 @@ end
 
 jac_sp = sparse(generate_sparsity_pattern(10))
 #jac = second_derivative_stencil(10)
-colors = repeat(1:3, 10)[1:10]
+colorvec = repeat(1:3, 10)[1:10]
 u0 = [1.0, 2.0, 3, 4, 5, 5, 4, 3, 2, 1]
 tspan = (0.0, 10.0)
 
@@ -69,32 +69,26 @@ for f in [f_oop, f_ip]
     odefun_std = ODEFunction(f)
     prob_std = ODEProblem(odefun_std, u0, tspan)
 
-    for ad in adchoices, linsolve in [nothing, LinearSolve.KrylovJL_GMRES()]
+    for autodiff in adchoices, linsolve in [nothing, LinearSolve.KrylovJL_GMRES()]
         for Solver in [Rodas5, Rosenbrock23, Trapezoid, KenCarp4, FBDF]
             for tol in [nothing, 1.0e-10]
-                sol_std = solve(prob_std, Solver(; autodiff = ad, linsolve), reltol = tol, abstol = tol)
+                sol_std = solve(prob_std, Solver(; autodiff, linsolve), reltol = tol, abstol = tol)
                 @test sol_std.retcode == ReturnCode.Success
                 for (i, prob) in enumerate(
                         map(
                             f -> ODEProblem(f, u0, tspan),
                             [
+                                ODEFunction(f; colorvec, jac_prototype = jac_sp),
                                 ODEFunction(
-                                    f, colorvec = colors,
-                                    jac_prototype = jac_sp
-                                ),
-                                ODEFunction(
-                                    f, colorvec = colors,
+                                    f; colorvec,
                                     jac_prototype = jac_sp, mass_matrix = I(length(u0))
                                 ),
                                 ODEFunction(f, jac_prototype = jac_sp),
-                                ODEFunction(
-                                    f, colorvec = colors,
-                                    sparsity = jac_sp
-                                ),
+                                ODEFunction(f; colorvec, sparsity = jac_sp),
                             ]
                         )
                     )
-                    sol = solve(prob, Solver(; autodiff = ad, linsolve), reltol = tol, abstol = tol)
+                    sol = solve(prob, Solver(; autodiff, linsolve), reltol = tol, abstol = tol)
                     @test sol.retcode == ReturnCode.Success
                     if tol != nothing
                         @test sol_std.u[end] ≈ sol.u[end] atol = tol

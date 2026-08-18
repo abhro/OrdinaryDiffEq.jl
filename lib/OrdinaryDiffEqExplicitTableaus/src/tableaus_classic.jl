@@ -21,7 +21,7 @@ function Butcher7(::Type{T} = Float64, ::Type{T_time} = T) where {T, T_time}
     A = map(T, A)
     α = map(T, α)
     c = map(T_time, c)
-    return (DiffEqBase.ExplicitRKTableau(A, c, α, 7, stability_size = 2.6662179256363756))
+    return DiffEqBase.ExplicitRKTableau(A, c, α, 7, stability_size = 2.6662179256363756)
 end
 
 function Dverk(::Type{T} = Float64, ::Type{T_time} = T) where {T, T_time}
@@ -42,11 +42,8 @@ function Dverk(::Type{T} = Float64, ::Type{T_time} = T) where {T, T_time}
     α = map(T, α)
     c = map(T_time, c)
     αEEst = map(T, αEEst)
-    return (
-        DiffEqBase.ExplicitRKTableau(
-            A, c, α, 6; αEEst, adaptiveorder = 5,
-            stability_size = 4.064777441244461
-        )
+    return DiffEqBase.ExplicitRKTableau(
+        A, c, α, 6; αEEst, adaptiveorder = 5, stability_size = 4.064777441244461
     )
 end
 
@@ -72,11 +69,8 @@ function ClassicVerner6(::Type{T} = Float64, ::Type{T_time} = T) where {T, T_tim
     α = map(T, α)
     c = map(T_time, c)
     αEEst = map(T, αEEst)
-    return (
-        DiffEqBase.ExplicitRKTableau(
-            A, c, α, 6; αEEst, adaptiveorder = 5,
-            stability_size = 4.457242953908324
-        )
+    return DiffEqBase.ExplicitRKTableau(
+        A, c, α, 6; αEEst, adaptiveorder = 5, stability_size = 4.457242953908324
     )
 end
 
@@ -107,11 +101,8 @@ function ClassicVerner7(::Type{T} = Float64, ::Type{T_time} = T) where {T, T_tim
     α = map(T, α)
     c = map(T_time, c)
     αEEst = map(T, αEEst)
-    return (
-        DiffEqBase.ExplicitRKTableau(
-            A, c, α, 7; αEEst, adaptiveorder = 6,
-            stability_size = 5.062347991796731
-        )
+    return DiffEqBase.ExplicitRKTableau(
+        A, c, α, 7; αEEst, adaptiveorder = 6, stability_size = 5.062347991796731
     )
 end
 
@@ -151,11 +142,8 @@ function ClassicVerner8(::Type{T} = Float64, ::Type{T_time} = T) where {T, T_tim
     α = map(T, α)
     c = map(T_time, c)
     αEEst = map(T, αEEst)
-    return (
-        DiffEqBase.ExplicitRKTableau(
-            A, c, α, 8; αEEst, adaptiveorder = 7,
-            stability_size = 5.076743619212314
-        )
+    return DiffEqBase.ExplicitRKTableau(
+        A, c, α, 8; αEEst, adaptiveorder = 7, stability_size = 5.076743619212314
     )
 end
 
@@ -196,11 +184,8 @@ function RKF8(::Type{T} = Float64, ::Type{T_time} = T) where {T, T_time}
     α = map(T, α)
     c = map(T_time, c)
     αEEst = map(T, αEEst)
-    return (
-        DiffEqBase.ExplicitRKTableau(
-            A, c, α, 8; αEEst, adaptiveorder = 7,
-            stability_size = 5.007588848940572
-        )
+    return DiffEqBase.ExplicitRKTableau(
+        A, c, α, 8; αEEst, adaptiveorder = 7, stability_size = 5.007588848940572
     )
 end
 
@@ -245,11 +230,8 @@ function DormandPrince8_64bit(::Type{T} = Float64, ::Type{T_time} = T) where {T,
     α = map(T, α)
     c = map(T_time, c)
     αEEst = map(T, αEEst)
-    return (
-        DiffEqBase.ExplicitRKTableau(
-            A, c, α, 8; αEEst, adaptiveorder = 7,
-            stability_size = 5.166633619968106
-        )
+    return DiffEqBase.ExplicitRKTableau(
+        A, c, α, 8; αEEst, adaptiveorder = 7, stability_size = 5.166633619968106
     )
 end
 
@@ -310,11 +292,8 @@ function DormandPrince8(::Type{T} = Float64, ::Type{T_time} = T) where {T, T_tim
     α = map(T, α)
     c = map(T_time, c)
     αEEst = map(T, αEEst)
-    return (
-        DiffEqBase.ExplicitRKTableau(
-            A, c, α, 8; αEEst, adaptiveorder = 7,
-            stability_size = 5.166633619968108
-        )
+    return DiffEqBase.ExplicitRKTableau(
+        A, c, α, 8; αEEst, adaptiveorder = 7, stability_size = 5.166633619968108
     )
 end
 
@@ -363,5 +342,5 @@ function RKO65(::Type{T} = Float64, ::Type{T_time} = T) where {T, T_time}
     A = map(T, A)
     α = map(T, α)
     c = map(T_time, c)
-    return (DiffEqBase.ExplicitRKTableau(A, c, α, 5, stability_size = 4.165854606804698))
+    return DiffEqBase.ExplicitRKTableau(A, c, α, 5, stability_size = 4.165854606804698)
 end

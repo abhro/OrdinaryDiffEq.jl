@@ -3,18 +3,20 @@ using SDEProblemLibrary: prob_sde_2Dlinear
 
 #=
 function f(u,p,t)
-  du = similar(u)
-  prob_sde_2Dlinear.f(du,u,p,t)
-  return du
+    du = similar(u)
+    prob_sde_2Dlinear.f(du,u,p,t)
+    return du
 end
 function σ(u,p,t)
-  du = similar(u)
-  prob_sde_2Dlinear.g(du,u,p,t)
-  return du
+    du = similar(u)
+    prob_sde_2Dlinear.g(du,u,p,t)
+    return du
 end
 
-probs = [prob_sde_2Dlinear,
-         SDEProblem(f,σ,prob_sde_2Dlinear.u0,prob_sde_2Dlinear.tspan)]
+probs = [
+    prob_sde_2Dlinear,
+    SDEProblem(f, σ, prob_sde_2Dlinear.u0, prob_sde_2Dlinear.tspan)
+]
 =#
 
 function tolerance_testing(probs, algs)

@@ -96,8 +96,7 @@ end
             # Linear roots (can step on exact root)
 
             cb = ContinuousCallback(
-                (u, t, integrator) -> poly(tdir * t),
-                affect!; abstol
+                (u, t, integrator) -> poly(tdir * t), affect!; abstol
             )
 
             record = []

@@ -44,9 +44,7 @@ differential equation problem for initial state `u0` with algorithm `alg`.
 """
 function u_uprev(
         u0, alg;
-        alias_u0 = false,
-        adaptive = isadaptive(alg),
-        calck = false
+        alias_u0 = false, adaptive = isadaptive(alg), calck = false
     )
     if alias_u0
         u = u0
@@ -72,9 +70,7 @@ Return state vectors `u`, `uprev`, and `uprev2` (possibly aliased) for solving t
 differential equation problem for initial state `u0` with algorithm `alg`.
 """
 function u_uprev_uprev2(
-        u0, alg;
-        allow_extrapolation = alg_extrapolates(alg),
-        kwargs...
+        u0, alg; allow_extrapolation = alg_extrapolates(alg), kwargs...
     )
     # compute u and uprev first
     u, uprev = u_uprev(u0, alg; kwargs...)
@@ -151,8 +147,7 @@ function callback_set_and_cache(prob, callback)
     if max_len_cb isa VectorContinuousCallback
         uBottomEltype = recursive_bottom_eltype(prob.u0)
         callback_cache = DiffEqBase.CallbackCache(
-            max_len_cb.len, uBottomEltype,
-            uBottomEltype
+            max_len_cb.len, uBottomEltype, uBottomEltype
         )
     else
         callback_cache = nothing
@@ -330,8 +325,7 @@ function build_history_function(
     # build dense interpolation of history
     ode_alg_choice = iscomposite(alg) ? Int[] : nothing
     ode_id = OrdinaryDiffEqCore.InterpolationData(
-        ode_f, ode_timeseries, ode_ts,
-        ode_ks,
+        ode_f, ode_timeseries, ode_ts, ode_ks,
         ode_alg_choice, true, ode_cache,
         differential_vars, false
     )
@@ -346,8 +340,7 @@ function build_history_function(
     # reserve capacity
     _sizehint_solution!(
         ode_sol, alg.alg, tspan, (), ();
-        save_everystep = true, adaptive, internalnorm,
-        dt, dtmin
+        save_everystep = true, adaptive, internalnorm, dt, dtmin
     )
 
     # create simple integrator
@@ -464,8 +457,7 @@ function build_history_function(
 
     _sizehint_solution!(
         ode_sol, alg.alg, tspan, (), ();
-        save_everystep = true, adaptive, internalnorm,
-        dt, dtmin
+        save_everystep = true, adaptive, internalnorm, dt, dtmin
     )
 
     tdirType = typeof(sign(zero(tType)))

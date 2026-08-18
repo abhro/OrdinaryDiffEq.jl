@@ -31,9 +31,8 @@ odef = ODEFunction(foop; jac, jac_prototype = jac(u0, p, 0.0), paramjac)
 
 function g_helper(p; alg = Rosenbrock23(linsolve = LUFactorization()))
     prob = ODEProblem(odef, u0, tspan, p)
-    soln = Array(solve(prob, alg; prob.u0, prob.p, abstol = 1.0e-4, reltol = 1.0e-4))[
-        :, end,
-    ]
+    soln = solve(prob, alg; prob.u0, prob.p, abstol = 1.0e-4, reltol = 1.0e-4)
+    soln = Array(soln)[:, end]
     return soln
 end
 function g(p; kwargs...)
@@ -63,8 +62,8 @@ end
     atol = 1.0e-1, rtol = 1.0e-1
 )
 @test isapprox(
-    exp.(p), g_helper(p; alg = Rodas4(linsolve = KrylovJL_GMRES())); atol = 1.0e-1,
-    rtol = 1.0e-1
+    exp.(p), g_helper(p; alg = Rodas4(linsolve = KrylovJL_GMRES()));
+    atol = 1.0e-1, rtol = 1.0e-1
 )
 
 @test isapprox(
@@ -76,8 +75,8 @@ end
     atol = 1.0e-1, rtol = 1.0e-1
 )
 @test isapprox(
-    exp.(p), g_helper(p; alg = Rodas5(linsolve = KrylovJL_GMRES())); atol = 1.0e-1,
-    rtol = 1.0e-1
+    exp.(p), g_helper(p; alg = Rodas5(linsolve = KrylovJL_GMRES()));
+    atol = 1.0e-1, rtol = 1.0e-1
 )
 
 @test isapprox(
@@ -102,8 +101,8 @@ end
     atol = 1.0e-1, rtol = 1.0e-1
 )
 @test isapprox(
-    exp.(p), g_helper(p; alg = TRBDF2(linsolve = KrylovJL_GMRES())); atol = 1.0e-1,
-    rtol = 1.0e-1
+    exp.(p), g_helper(p; alg = TRBDF2(linsolve = KrylovJL_GMRES()));
+    atol = 1.0e-1, rtol = 1.0e-1
 )
 
 @test isapprox(
@@ -134,16 +133,12 @@ n = 2
 p = collect(1.0:n)
 u0 = ones(n)
 tspan = [0.0, 1]
-odef = ODEFunction{true}(
-    fiip; jac, jac_prototype = jac(u0, p, 0.0),
-    paramjac
-)
+odef = ODEFunction{true}(fiip; jac, jac_prototype = jac(u0, p, 0.0), paramjac)
 
 function g_helper(p; alg = Rosenbrock23(linsolve = LUFactorization()))
     prob = ODEProblem(odef, u0, tspan, p)
-    soln = Array(solve(prob, alg; prob.u0, prob.p, abstol = 1.0e-4, reltol = 1.0e-4))[
-        :, end,
-    ]
+    soln = solve(prob, alg; prob.u0, prob.p, abstol = 1.0e-4, reltol = 1.0e-4)
+    soln = Array(soln)[:, end]
     return soln
 end
 function g(p; kwargs...)
@@ -173,8 +168,8 @@ end
     atol = 1.0e-1, rtol = 1.0e-1
 )
 @test isapprox(
-    exp.(p), g_helper(p; alg = Rodas4(linsolve = KrylovJL_GMRES())); atol = 1.0e-1,
-    rtol = 1.0e-1
+    exp.(p), g_helper(p; alg = Rodas4(linsolve = KrylovJL_GMRES()));
+    atol = 1.0e-1, rtol = 1.0e-1
 )
 
 @test isapprox(
@@ -186,8 +181,8 @@ end
     atol = 1.0e-1, rtol = 1.0e-1
 )
 @test isapprox(
-    exp.(p), g_helper(p; alg = Rodas5(linsolve = KrylovJL_GMRES())); atol = 1.0e-1,
-    rtol = 1.0e-1
+    exp.(p), g_helper(p; alg = Rodas5(linsolve = KrylovJL_GMRES()));
+    atol = 1.0e-1, rtol = 1.0e-1
 )
 
 @test isapprox(
@@ -212,8 +207,8 @@ end
     atol = 1.0e-1, rtol = 1.0e-1
 )
 @test isapprox(
-    exp.(p), g_helper(p; alg = TRBDF2(linsolve = KrylovJL_GMRES())); atol = 1.0e-1,
-    rtol = 1.0e-1
+    exp.(p), g_helper(p; alg = TRBDF2(linsolve = KrylovJL_GMRES()));
+    atol = 1.0e-1, rtol = 1.0e-1
 )
 
 @test isapprox(

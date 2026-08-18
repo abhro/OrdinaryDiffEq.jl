@@ -96,8 +96,7 @@ end
     Algs = [Exp4, EPIRK4s3A, EPIRK4s3B, EPIRK5s3, EXPRB53s3, EPIRK5P1, EPIRK5P2]
     for Alg in Algs
         sim = analyticless_test_convergence(
-            dts, prob, Alg(adaptive_krylov = false),
-            test_setup
+            dts, prob, Alg(adaptive_krylov = false), test_setup
         )
         if Alg == EPIRK5s3
             @test_broken sim.𝒪est[:l2] ≈ alg_order(Alg()) atol = 0.1

@@ -20,7 +20,7 @@ struct BS3ConstantCache{T, T2} <: OrdinaryDiffEqConstantCache
 end
 
 """
-constructBogakiShampine3()
+    constructBogakiShampine3()
 
 Constructs the tableau object for the Bogakai-Shampine Order 2/3 method.
 """
@@ -44,7 +44,7 @@ function BS3ConstantCache(T::Type{<:CompiledFloats}, T2::Type{<:CompiledFloats})
 end
 
 """
-constructBogakiShampine3()
+    constructBogakiShampine3()
 
 Constructs the tableau object for the Bogakai-Shampine Order 2/3 method.
 """

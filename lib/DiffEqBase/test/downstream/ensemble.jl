@@ -17,19 +17,19 @@ err_sim = DiffEqBase.calculate_ensemble_errors(sim; weak_dense_errors = true)
 @test length(sim.u) == 10
 
 sim = solve(
-    prob2, SRIW1(), EnsembleThreads(), dt = 1 // 2^(3), trajectories = 10,
+    prob2, SRIW1(), EnsembleThreads(), dt = 1 // 2^3, trajectories = 10,
     batch_size = 2
 )
 err_sim = DiffEqBase.calculate_ensemble_errors(sim; weak_dense_errors = true)
 @test length(sim.u) == 10
 
 sim = solve(
-    prob2, SRIW1(), EnsembleThreads(), dt = 1 // 2^(3), adaptive = false,
+    prob2, SRIW1(), EnsembleThreads(), dt = 1 // 2^3, adaptive = false,
     trajectories = 10
 )
 err_sim = DiffEqBase.calculate_ensemble_errors(sim; weak_timeseries_errors = true)
 
-sim = solve(prob2, SRIW1(), EnsembleThreads(), dt = 1 // 2^(3), trajectories = 10)
+sim = solve(prob2, SRIW1(), EnsembleThreads(), dt = 1 // 2^3, trajectories = 10)
 DiffEqBase.calculate_ensemble_errors(sim)
 @test length(sim.u) == 10
 
@@ -74,8 +74,7 @@ reduction = function (u, batch, I)
 end
 
 prob2 = EnsembleProblem(
-    prob; prob_func, output_func,
-    reduction, u_init = Vector{Float64}(),
+    prob; prob_func, output_func, reduction, u_init = Vector{Float64}(),
     safetycopy = false
 )
 sim = solve(prob2, Tsit5(), trajectories = 10000, batch_size = 20)
@@ -92,8 +91,7 @@ reduction = function (u, batch, I)
 end
 
 prob2 = EnsembleProblem(
-    prob; prob_func, output_func,
-    reduction, u_init = Vector{Float64}()
+    prob; prob_func, output_func, reduction, u_init = Vector{Float64}()
 )
 sim = solve(prob2, Tsit5(), trajectories = 100, batch_size = 20)
 @test sim.converged == false
@@ -101,10 +99,7 @@ sim = solve(prob2, Tsit5(), trajectories = 100, batch_size = 20)
 reduction = function (u, batch, I)
     return u + sum(batch), false
 end
-prob2 = EnsembleProblem(
-    prob; prob_func, output_func,
-    reduction, u_init = 0.0
-)
+prob2 = EnsembleProblem(prob; prob_func, output_func, reduction, u_init = 0.0)
 sim2 = solve(prob2, Tsit5(), trajectories = 100, batch_size = 20)
 @test sim2.converged == false
 @test sum(sim.u) / length(sim.u) ≈ sim2.u / 100

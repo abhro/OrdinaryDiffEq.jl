@@ -66,10 +66,7 @@ SOLVE_KWARGS = (; maxiters = 10_000)
 # in-place (`dae!` mutates `du`), so iip = true. FullSpecialize bypasses the
 # FunctionWrappers path described in the header note.
 make_odef(; mass_matrix, jac_prototype) =
-    ODEFunction{true, FullSpecialize}(
-    dae!;
-    mass_matrix, jac_prototype
-)
+    ODEFunction{true, FullSpecialize}(dae!; mass_matrix, jac_prototype)
 
 # ── CPU reference ────────────────────────────────────────────────────────────
 

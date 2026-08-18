@@ -173,11 +173,8 @@ function EnrightVerner8(::Type{T} = Float64, ::Type{T_time} = T) where {T, T_tim
     α = map(T, α)
     c = map(T_time, c)
     αEEst = map(T, αEEst)
-    return (
-        DiffEqBase.ExplicitRKTableau(
-            A, c, α, 8; αEEst, adaptiveorder = 7,
-            stability_size = 5.642563947370989
-        )
+    return DiffEqBase.ExplicitRKTableau(
+        A, c, α, 8; αEEst, adaptiveorder = 7, stability_size = 5.642563947370989
     )
 end
 
@@ -329,11 +326,8 @@ function dverk78(::Type{T} = Float64, ::Type{T_time} = T) where {T, T_time}
     α = map(T, α)
     c = map(T_time, c)
     αEEst = map(T, αEEst)
-    return (
-        DiffEqBase.ExplicitRKTableau(
-            A, c, α, 8; αEEst, adaptiveorder = 7,
-            stability_size = 5.785500208507322
-        )
+    return DiffEqBase.ExplicitRKTableau(
+        A, c, α, 8; αEEst, adaptiveorder = 7, stability_size = 5.785500208507322
     )
 end
 
@@ -506,11 +500,8 @@ function TsitourasPapakostas8(::Type{T} = Float64, ::Type{T_time} = T) where {T,
     α = map(T, α)
     c = map(T_time, c)
     αEEst = map(T, αEEst)
-    return (
-        DiffEqBase.ExplicitRKTableau(
-            A, c, α, 8; αEEst, adaptiveorder = 7,
-            stability_size = 5.906883483660496
-        )
+    return DiffEqBase.ExplicitRKTableau(
+        A, c, α, 8; αEEst, adaptiveorder = 7, stability_size = 5.906883483660496
     )
 end
 
@@ -817,11 +808,8 @@ function VernerRobust9(::Type{T} = Float64, ::Type{T_time} = T) where {T, T_time
     α = map(T, α)
     c = map(T_time, c)
     αEEst = map(T, αEEst)
-    return (
-        DiffEqBase.ExplicitRKTableau(
-            A, c, α, 9; αEEst, adaptiveorder = 8,
-            stability_size = 4.5214477514362255
-        )
+    return DiffEqBase.ExplicitRKTableau(
+        A, c, α, 9; αEEst, adaptiveorder = 8, stability_size = 4.5214477514362255
     )
 end
 
@@ -1157,11 +1145,8 @@ function VernerEfficient9(::Type{T} = Float64, ::Type{T_time} = T) where {T, T_t
     α = map(T, α)
     c = map(T_time, c)
     αEEst = map(T, αEEst)
-    return (
-        DiffEqBase.ExplicitRKTableau(
-            A, c, α, 9; αEEst, adaptiveorder = 8,
-            stability_size = 4.476172722561913
-        )
+    return DiffEqBase.ExplicitRKTableau(
+        A, c, α, 9; αEEst, adaptiveorder = 8, stability_size = 4.476172722561913
     )
 end
 
@@ -1443,11 +1428,8 @@ function Sharp9(::Type{T} = Float64, ::Type{T_time} = T) where {T, T_time}
     α = map(T, α)
     c = map(T_time, c)
     αEEst = map(T, αEEst)
-    return (
-        DiffEqBase.ExplicitRKTableau(
-            A, c, α, 9; αEEst, adaptiveorder = 8,
-            stability_size = 5.191689996466664
-        )
+    return DiffEqBase.ExplicitRKTableau(
+        A, c, α, 9; αEEst, adaptiveorder = 8, stability_size = 5.191689996466664
     )
 end
 
@@ -1726,11 +1708,8 @@ function Tsitouras9(::Type{T} = Float64, ::Type{T_time} = T) where {T, T_time}
     α = map(T, α)
     c = map(T_time, c)
     αEEst = map(T, αEEst)
-    return (
-        DiffEqBase.ExplicitRKTableau(
-            A, c, α, 9; αEEst, adaptiveorder = 8,
-            stability_size = 3.939793900092272
-        )
+    return DiffEqBase.ExplicitRKTableau(
+        A, c, α, 9; αEEst, adaptiveorder = 8, stability_size = 3.939793900092272
     )
 end
 
@@ -2069,11 +2048,8 @@ function Tsitouras92(::Type{T} = Float64, ::Type{T_time} = T) where {T, T_time}
     α = map(T, α)
     αEEst = map(T, αEEst)
     c = map(T_time, c)
-    return (
-        DiffEqBase.ExplicitRKTableau(
-            A, c, α, 9; αEEst, adaptiveorder = 8,
-            stability_size = 4.501341330915361
-        )
+    return DiffEqBase.ExplicitRKTableau(
+        A, c, α, 9; αEEst, adaptiveorder = 8, stability_size = 4.501341330915361
     )
 end
 

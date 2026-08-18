@@ -88,7 +88,7 @@ dts = (1 / 2) .^ (10:-1:5) #14->7 good plot
 trajectories = 50
 simEM = test_convergence(dts, probiip, EM(); trajectories)
 simPCEuler = test_convergence(dts, probiip, PCEuler(ggprime); trajectories)
-#simRKMil = test_convergence(dts, probiip, RKMilCommute(), trajectories)
+#simRKMil = test_convergence(dts, probiip, RKMilCommute(); trajectories)
 @test all(simPCEuler.errors[:l2] .< simEM.errors[:l2])
 
 ## Plotting script to see the order 1 scaling of PCEuler
@@ -144,9 +144,7 @@ iip_prob = SDEProblem{true}(f, g, u0, tspan, noise_rate_prototype = prototype)
 # Out of place regression tests
 
 f(u, p, t) = u
-function g(u, p, t)
-    return [-0.8 -0.3; -0.8 0.3]
-end
+g(u, p, t) = [-0.8 -0.3; -0.8 0.3]
 
 u0 = ones(2)
 dt = 1 // 2^(4)

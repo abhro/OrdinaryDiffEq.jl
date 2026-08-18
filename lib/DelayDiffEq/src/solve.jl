@@ -177,13 +177,8 @@ function SciMLBase.__init(
     end
 
     # get states (possibly different from the ODE integrator!)
-    u, uprev,
-        uprev2 = u_uprev_uprev2(
-        u0, alg;
-        alias_u0,
-        adaptive,
-        allow_extrapolation,
-        calck
+    u, uprev, uprev2 = u_uprev_uprev2(
+        u0, alg; alias_u0, adaptive, allow_extrapolation, calck
     )
     uEltypeNoUnits = recursive_unitless_eltype(u)
     uBottomEltypeNoUnits = recursive_unitless_bottom_eltype(u)
@@ -199,10 +194,8 @@ function SciMLBase.__init(
 
     # create a history function
     history = build_history_function(
-        prob, alg, rate_prototype, reltol_internal,
-        differential_vars;
-        dt, dtmin, calck = false,
-        adaptive, internalnorm
+        prob, alg, rate_prototype, reltol_internal, differential_vars;
+        dt, dtmin, calck = false, adaptive, internalnorm
     )
     f_with_history = if is_stochastic
         SDEFunctionWrapper(f, history)
@@ -225,15 +218,9 @@ function SciMLBase.__init(
         saved_subsystem = SciMLBase.get_save_idxs_and_saved_subsystem(prob, save_idxs)
 
     k = typeof(rate_prototype)[]
-    ts, timeseries,
-        ks = solution_arrays(
+    ts, timeseries, ks = solution_arrays(
         u, tspan, rate_prototype;
-        timeseries_init,
-        ts_init,
-        ks_init,
-        save_idxs,
-        save_start,
-        is_stochastic
+        timeseries_init, ts_init, ks_init, save_idxs, save_start, is_stochastic
     )
 
     # build cache
@@ -272,29 +259,23 @@ function SciMLBase.__init(
         SciMLBase.build_solution(
             prob, alg.alg, ts, timeseries;
             dense, k = ks, interp = id, saved_subsystem,
-            id.alg_choice, calculate_error = false,
-            stats, W,
+            id.alg_choice, calculate_error = false, stats, W,
         )
     else
         SciMLBase.build_solution(
             prob, alg.alg, ts, timeseries;
             dense, k = ks, interp = id, saved_subsystem,
-            id.alg_choice, calculate_error = false,
-            stats,
+            id.alg_choice, calculate_error = false, stats,
         )
     end
 
     # retrieve time stops, time points at which solutions is saved, and discontinuities
     tstops_internal = OrdinaryDiffEqCore.initialize_tstops(
-        tType, tstops, d_discontinuities,
-        tspan
+        tType, tstops, d_discontinuities, tspan
     )
     saveat_internal = OrdinaryDiffEqCore.initialize_saveat(tType, saveat, tspan)
     d_discontinuities_internal = OrdinaryDiffEqCore.initialize_d_discontinuities(
-        Discontinuity{
-            tType,
-            Int,
-        },
+        Discontinuity{tType, Int},
         d_discontinuities,
         tspan
     )
@@ -315,8 +296,7 @@ function SciMLBase.__init(
     # reserve capacity for the solution
     _sizehint_solution!(
         sol, alg, tspan, tstops_internal, saveat_internal;
-        save_everystep, adaptive, dt = tType(dt),
-        dtmin, internalnorm
+        save_everystep, adaptive, dt = tType(dt), dtmin, internalnorm
     )
 
     # create array of tracked discontinuities
@@ -605,9 +585,7 @@ function DiffEqBase.solve!(integrator::DDEIntegrator)
 
     if SciMLBase.has_analytic(f)
         SciMLBase.calculate_solution_errors!(
-            sol;
-            opts.timeseries_errors,
-            opts.dense_errors
+            sol; opts.timeseries_errors, opts.dense_errors,
         )
     end
     sol.retcode == ReturnCode.Default || return sol
@@ -655,8 +633,8 @@ function OrdinaryDiffEqCore.initialize_callbacks!(
 
         if initialize_save &&
                 (
-                any((c) -> c.save_positions[2], callbacks.discrete_callbacks) ||
-                    any((c) -> c.save_positions[2], callbacks.continuous_callbacks)
+                any(c -> c.save_positions[2], callbacks.discrete_callbacks) ||
+                    any(c -> c.save_positions[2], callbacks.continuous_callbacks)
             )
             savevalues!(integrator, true)
         end

@@ -57,27 +57,15 @@ idxsv = [2, 3]
 
 # primal, scalar index
 @test isapprox(ref_ip(t; idxs), sol_ip(t; idxs); rtol, atol) # ip, t
-@test isapprox(
-    ref_ip(tv; idxs), sol_ip(tv; idxs); rtol, atol
-) # ip, tv
+@test isapprox(ref_ip(tv; idxs), sol_ip(tv; idxs); rtol, atol) # ip, tv
 @test isapprox(ref_op(t; idxs), sol_op(t; idxs); rtol, atol) # op, t
-@test isapprox(
-    ref_op(tv; idxs), sol_op(tv; idxs); rtol, atol
-) # op, tv
+@test isapprox(ref_op(tv; idxs), sol_op(tv; idxs); rtol, atol) # op, tv
 
 # primal, vector index
-@test isapprox(
-    ref_ip(t, idxs = idxsv), sol_ip(t, idxs = idxsv); rtol, atol
-)
-@test isapprox(
-    ref_ip(tv, idxs = idxsv), sol_ip(tv, idxs = idxsv); rtol, atol
-)
-@test isapprox(
-    ref_op(t, idxs = idxsv), sol_op(t, idxs = idxsv); rtol, atol
-)
-@test isapprox(
-    ref_op(tv, idxs = idxsv), sol_op(tv, idxs = idxsv); rtol, atol
-)
+@test isapprox(ref_ip(t, idxs = idxsv), sol_ip(t, idxs = idxsv); rtol, atol)
+@test isapprox(ref_ip(tv, idxs = idxsv), sol_ip(tv, idxs = idxsv); rtol, atol)
+@test isapprox(ref_op(t, idxs = idxsv), sol_op(t, idxs = idxsv); rtol, atol)
+@test isapprox(ref_op(tv, idxs = idxsv), sol_op(tv, idxs = idxsv); rtol, atol)
 
 atol = 1.0e-3
 # derivative, no index
@@ -87,39 +75,27 @@ atol = 1.0e-3
 @test isapprox(ref_op(tv, Val{1}), sol_op(tv, Val{1}); rtol, atol)
 
 # derivative, scalar index
-@test isapprox(
-    ref_ip(t, Val{1}; idxs),
-    sol_ip(t, Val{1}; idxs); rtol, atol
-)
-@test isapprox(
-    ref_ip(tv, Val{1}; idxs),
-    sol_ip(tv, Val{1}; idxs); rtol, atol
-)
-@test isapprox(
-    ref_op(t, Val{1}; idxs),
-    sol_op(t, Val{1}; idxs); rtol, atol
-)
-@test isapprox(
-    ref_op(tv, Val{1}; idxs),
-    sol_op(tv, Val{1}; idxs); rtol, atol
-)
+@test isapprox(ref_ip(t, Val{1}; idxs), sol_ip(t, Val{1}; idxs); rtol, atol)
+@test isapprox(ref_ip(tv, Val{1}; idxs), sol_ip(tv, Val{1}; idxs); rtol, atol)
+@test isapprox(ref_op(t, Val{1}; idxs), sol_op(t, Val{1}; idxs); rtol, atol)
+@test isapprox(ref_op(tv, Val{1}; idxs), sol_op(tv, Val{1}; idxs); rtol, atol)
 
 # derivative, vector index
 @test isapprox(
-    ref_ip(tv, Val{1}, idxs = idxsv),
-    sol_ip(tv, Val{1}, idxs = idxsv); rtol, atol
+    ref_ip(tv, Val{1}; idxs = idxsv),
+    sol_ip(tv, Val{1}; idxs = idxsv); rtol, atol
 )
 @test isapprox(
-    ref_ip(t, Val{1}, idxs = idxsv),
-    sol_ip(t, Val{1}, idxs = idxsv); rtol, atol
+    ref_ip(t, Val{1}; idxs = idxsv),
+    sol_ip(t, Val{1}; idxs = idxsv); rtol, atol
 )
 @test isapprox(
-    ref_op(t, Val{1}, idxs = idxsv),
-    sol_op(t, Val{1}, idxs = idxsv); rtol, atol
+    ref_op(t, Val{1}; idxs = idxsv),
+    sol_op(t, Val{1}; idxs = idxsv); rtol, atol
 )
 @test isapprox(
-    ref_op(tv, Val{1}, idxs = idxsv),
-    sol_op(tv, Val{1}, idxs = idxsv); rtol, atol
+    ref_op(tv, Val{1}; idxs = idxsv),
+    sol_op(tv, Val{1}; idxs = idxsv); rtol, atol
 )
 
 # higher derivatives should be zero.

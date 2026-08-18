@@ -431,9 +431,7 @@ Base.@constprop :aggressive function _ode_init(
         resType = typeof(res_prototype)
     end
 
-    if isnothing(alias.alias_tstops) || alias.alias_tstops
-        tstops = tstops
-    else
+    if !isnothing(alias.alias_tstops) && !alias.alias_tstops
         tstops = recursivecopy(tstops)
     end
 
@@ -446,8 +444,7 @@ Base.@constprop :aggressive function _ode_init(
     tstops_internal = initialize_tstops(tType, tstops, d_discontinuities, tspan)
     saveat_internal = initialize_saveat(tType, saveat, tspan)
     d_discontinuities_internal = initialize_d_discontinuities(
-        tType, d_discontinuities,
-        tspan
+        tType, d_discontinuities, tspan
     )
 
     callbacks_internal = CallbackSet(callback)
@@ -457,13 +454,11 @@ Base.@constprop :aggressive function _ode_init(
         uBottomEltypeReal = real(uBottomEltype)
         if isinplace(prob)
             callback_cache = DiffEqBase.CallbackCache(
-                u, max_len_cb, uBottomEltypeReal,
-                uBottomEltypeReal
+                u, max_len_cb, uBottomEltypeReal, uBottomEltypeReal
             )
         else
             callback_cache = DiffEqBase.CallbackCache(
-                max_len_cb, uBottomEltypeReal,
-                uBottomEltypeReal
+                max_len_cb, uBottomEltypeReal, uBottomEltypeReal
             )
         end
     else
@@ -471,8 +466,7 @@ Base.@constprop :aggressive function _ode_init(
     end
 
     ### Algorithm-specific defaults ###
-    save_idxs,
-        saved_subsystem = SciMLBase.get_save_idxs_and_saved_subsystem(
+    save_idxs, saved_subsystem = SciMLBase.get_save_idxs_and_saved_subsystem(
         prob, save_idxs
     )
 

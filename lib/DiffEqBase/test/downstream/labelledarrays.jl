@@ -21,7 +21,8 @@ sol = solve(prob, DImplicitEuler())
 
 function f1(du, u, p, t)
     du.x .= -1 .* u.x .* u.y .* p[1]
-    return du.y .= -1 .* u.y .* p[2]
+    du.y .= -1 .* u.y .* p[2]
+    return
 end
 const n = 4
 u_0 = @LArray fill(1000.0, 2 * n) (x = (1:n), y = ((n + 1):(2 * n)))

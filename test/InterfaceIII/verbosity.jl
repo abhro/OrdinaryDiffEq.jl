@@ -258,7 +258,7 @@ using NonlinearSolve: NonlinearVerbosity
             du[1] = -k₁ * y₁ + k₃ * y₂ * y₃
             du[2] = k₁ * y₁ - k₃ * y₂ * y₃ - k₂ * y₂^2
             du[3] = y₁ + y₂ + y₃ - 1
-            nothing
+            return
         end
         u0 = [1.0, 0.0, 0.0]
         tspan = (0.0, 1.0e-1)
@@ -347,10 +347,8 @@ using NonlinearSolve: NonlinearVerbosity
 
                 # Check all three linear solvers have the correct verbosity
                 @test integrator.cache.linsolve1.verbose == LinearVerbosity(SciMLLogging.All())
-                @test integrator.cache.linsolve2.verbose ==
-                    LinearVerbosity(SciMLLogging.All())
-                @test integrator.cache.linsolve3.verbose ==
-                    LinearVerbosity(SciMLLogging.All())
+                @test integrator.cache.linsolve2.verbose == LinearVerbosity(SciMLLogging.All())
+                @test integrator.cache.linsolve3.verbose == LinearVerbosity(SciMLLogging.All())
             end
         end
 

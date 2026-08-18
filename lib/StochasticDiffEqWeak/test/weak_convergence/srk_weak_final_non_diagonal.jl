@@ -42,9 +42,8 @@ h2(z) = z^2 # but apply it only to u[1]
 
 prob = SDEProblem(f2!, g2!, u₀, tspan, noise_rate_prototype = zeros(2, 2))
 ensemble_prob = EnsembleProblem(
-    prob;
+    prob; prob_func,
     output_func = (sol, ctx) -> (h2(sol.u[end][1]), false),
-    prob_func
 )
 
 numtraj = Int(1.0e6)

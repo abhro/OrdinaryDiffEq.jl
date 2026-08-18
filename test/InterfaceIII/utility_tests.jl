@@ -21,8 +21,7 @@ using SciMLOperators: MatrixOperator
         jac = (u, p, t) -> A
     )
     integrator = init(
-        ODEProblem(fun, u0, tspan), ImplicitEuler(); adaptive = false,
-        dt
+        ODEProblem(fun, u0, tspan), ImplicitEuler(); adaptive = false, dt
     )
     W = calc_W(integrator, integrator.cache.nlsolver, dtgamma, false)
     @test convert(AbstractMatrix, W) == concrete_W
@@ -37,8 +36,7 @@ using SciMLOperators: MatrixOperator
         jac_prototype = MatrixOperator(copy(A); update_func! = update_jacobian!)
     )
     integrator = init(
-        ODEProblem(fun, u0, tspan), ImplicitEuler(); adaptive = false,
-        dt
+        ODEProblem(fun, u0, tspan), ImplicitEuler(); adaptive = false, dt
     )
     updates_before_calc_W = jacobian_updates[]
     calc_W!(

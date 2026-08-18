@@ -1247,7 +1247,7 @@ function Ono10(::Type{T} = BigFloat, ::Type{T_time} = T) where {T, T_time}
     A = map(T, A)
     α = map(T, α)
     c = map(T_time, c)
-    return (DiffEqBase.ExplicitRKTableau(A, c, α, 10, stability_size = 3.381557905977185))
+    return DiffEqBase.ExplicitRKTableau(A, c, α, 10, stability_size = 3.381557905977185)
 end
 
 """
@@ -1737,7 +1737,7 @@ function Feagin10(::Type{T} = BigFloat, ::Type{T_time} = T) where {T, T_time}
     A = map(T, A)
     α = map(T, α)
     c = map(T_time, c)
-    return (DiffEqBase.ExplicitRKTableau(A, c, α, 10, stability_size = 2.527944696214181))
+    return DiffEqBase.ExplicitRKTableau(A, c, α, 10, stability_size = 2.527944696214181)
 end
 
 """
@@ -2263,7 +2263,7 @@ function Hairer10(::Type{T} = BigFloat, ::Type{T_time} = T) where {T, T_time}
     A = map(T, A)
     α = map(T, α)
     c = map(T_time, c)
-    return (DiffEqBase.ExplicitRKTableau(A, c, α, 10, stability_size = 2.7046790686948667))
+    return DiffEqBase.ExplicitRKTableau(A, c, α, 10, stability_size = 2.7046790686948667)
 end
 
 """
@@ -6350,7 +6350,7 @@ function Feagin14(::Type{T} = BigFloat, ::Type{T_time} = T) where {T, T_time}
 end
 
 """
-MSRK10()
+    MSRK10()
 
 Misha Stepanov's explicit 15-stage Runge-Kutta method of order 10 with an embedded
 order-8 estimator. Reference: Misha Stepanov, "On Runge-Kutta methods of order 10",

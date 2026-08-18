@@ -33,9 +33,8 @@ seeds = rand(UInt, numtraj)
 
 prob = SDEProblem(f, g, u₀, tspan)
 ensemble_prob = EnsembleProblem(
-    prob;
+    prob; prob_func,
     output_func = (sol, ctx) -> (h1(asinh(sol.u[end])), false),
-    prob_func
 )
 
 println("IRI1 weak convergence test")

@@ -22,8 +22,8 @@ function _van(u, p, t)
     μ = p[1]
     return [
         y,                           # dx/dt = y
-        μ * ((1 - x^2) * y - x),
-    ]     # dy/dt = μ * ((1 - x^2) * y - x)
+        μ * ((1 - x^2) * y - x),     # dy/dt = μ * ((1 - x^2) * y - x)
+    ]
 end
 prob3 = ODEProblem(_van, [2.0, 0.0], (0.0, 6), [inv(0.003)])
 probArr = [prob1, prob2, prob3]
@@ -93,9 +93,10 @@ for (i, prob) in enumerate(probArr)
     sol = solve(
         prob,
         AutoVern9(
-            KenCarp3(autodiff = AutoFiniteDiff()); maxstiffstep = 4,
-            maxnonstiffstep = 1
-        ), maxiters = 1000
+            KenCarp3(autodiff = AutoFiniteDiff());
+            maxstiffstep = 4, maxnonstiffstep = 1
+        ),
+        maxiters = 1000
     )
     @test length(sol.t) < 570
     @test SciMLBase.successful_retcode(sol)

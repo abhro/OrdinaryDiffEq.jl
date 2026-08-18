@@ -14,7 +14,7 @@ plot(
     sol, linewidth = 5, title = "Solution to the linear ODE with a thick line",
     xaxis = "Time (t)", yaxis = "u(t) (in μm)", label = "My Thick Line!", # legend = false
 )
-plot!(sol.t, t -> 0.5 * exp(1.01 * t), lw = 3, ls = :dash, label = "True Solution!")
+plot!(sol.t, t -> 0.5 * exp(1.01t), lw = 3, ls = :dash, label = "True Solution!")
 ```
 `Tsit5()` is a good default choice for many non-stiff ODEs. For stiff problems,
 consider using an implicit method such as `Rodas5P()` or `TRBDF2()`.
@@ -62,7 +62,7 @@ end
 initial_positions = [0.0, 0.1]
 initial_velocities = [0.5, 0.0]
 prob = SecondOrderODEProblem(HH_acceleration!, initial_velocities, initial_positions, tspan)
-sol2 = solve(prob, KahanLi8(), dt = 1 / 10);
+sol2 = solve(prob, KahanLi8(), dt = 1 / 10)
 ```
 
 Other refined forms are IMEX and semi-linear ODEs (for exponential integrators).

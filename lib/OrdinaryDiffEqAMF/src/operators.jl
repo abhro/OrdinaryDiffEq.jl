@@ -86,8 +86,10 @@ function _assemble_amf_operator(factors)
 end
 
 """
-    build_amf_function(f!; jac, split = nothing, amf_factors = nothing,
-        jac_cache = nothing, w_cache = nothing, sparsity = nothing)
+    build_amf_function(
+        f!; jac, split = nothing, amf_factors = nothing,
+        jac_cache = nothing, w_cache = nothing, sparsity = nothing
+    )
 
 Build an [`SciMLBase.ODEFunction`](@ref) whose Jacobian and Rosenbrock-W
 operator use an approximate matrix factorization (AMF).

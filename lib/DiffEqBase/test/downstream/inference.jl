@@ -33,9 +33,7 @@ remake(prob, u0 = [1.0; 0.0; 0.0])
 u0_32 = Float32[1.0; 0.0; 0.0]
 @inferred SciMLBase.wrapfun_iip(prob.f, (u0_32, u0_32, Float32[], tspan[1]))
 @test_broken @inferred(
-    ODEFunction{
-        isinplace(prob), SciMLBase.FunctionWrapperSpecialize,
-    }(prob.f)
+    ODEFunction{isinplace(prob), SciMLBase.FunctionWrapperSpecialize}(prob.f)
 ) ==
     ODEFunction{isinplace(prob), SciMLBase.FunctionWrapperSpecialize}(prob.f)
 @inferred remake(prob, u0 = [1.0; 0.0; 0.0])
@@ -44,7 +42,8 @@ u0_32 = Float32[1.0; 0.0; 0.0]
 
 function f(du, u, p, t)
     du[1] = p.a
-    return du[2] = p.b
+    du[2] = p.b
+    return
 end
 
 const alg = Tsit5()
@@ -85,15 +84,11 @@ end
 @inferred solve_ode(f, (a = 1, b = 1), EnsembleSerial(), save_idxs = 1)
 @inferred solve_ode(f, (a = 1, b = 1), EnsembleThreads(), save_idxs = 1)
 @test_broken @inferred(
-    solve_ode(
-        f, (a = 1, b = 1), EnsembleDistributed(), save_idxs = 1
-    )
+    solve_ode(f, (a = 1, b = 1), EnsembleDistributed(), save_idxs = 1)
 ) ==
     solve_ode(f, (a = 1, b = 1), EnsembleDistributed(), save_idxs = 1)
 @test_broken @inferred(
-    solve_ode(
-        f, (a = 1, b = 1), EnsembleSplitThreads(), save_idxs = 1
-    )
+    solve_ode(f, (a = 1, b = 1), EnsembleSplitThreads(), save_idxs = 1)
 ) ==
     solve_ode(f, (a = 1, b = 1), EnsembleSplitThreads(), save_idxs = 1)
 
@@ -101,7 +96,7 @@ using StochasticDiffEq, Test
 u0 = 1 / 2
 ff(u, p, t) = u
 gg(u, p, t) = u
-dt = 1 // 2^(4)
+dt = 1 // 2^4
 tspan = (0.0, 1.0)
 prob = SDEProblem(ff, gg, u0, (0.0, 1.0))
 sol = solve(prob, EM(); dt)

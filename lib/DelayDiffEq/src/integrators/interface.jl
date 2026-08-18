@@ -40,8 +40,7 @@ function DiffEqBase.savevalues!(
 end
 
 function DiffEqBase.savevalues!(
-        integrator::DDEIntegrator, force_save = false,
-        reduce_size = false
+        integrator::DDEIntegrator, force_save = false, reduce_size = false
     )::Tuple{Bool, Bool}
     ode_integrator = integrator.integrator
 
@@ -80,9 +79,8 @@ function DiffEqBase.savevalues!(
 
     # update history
     saved, savedexactly = DiffEqBase.savevalues!(
-        ode_integrator, force_save,
-        false
-    ) # reduce_size = false
+        ode_integrator, force_save, false, # reduce_size = false
+    )
 
     # check that history was actually updated
     saved || error("dense history could not be updated")

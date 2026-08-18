@@ -131,8 +131,7 @@ end
 
     prob_static = ODEProblem(precise_dynamics, u0_static, tspan)
     sol_static = solve(
-        prob_static, Vern9(); reltol = 1.0e-12, abstol = 1.0e-15,
-        tstops
+        prob_static, Vern9(); reltol = 1.0e-12, abstol = 1.0e-15, tstops
     )
     @test successful_retcode(sol_static)
     for tstop in tstops
@@ -141,8 +140,7 @@ end
 
     prob_array = ODEProblem(precise_dynamics_array!, u0_array, tspan)
     sol_array = solve(
-        prob_array, Vern9(); reltol = 1.0e-12, abstol = 1.0e-15,
-        tstops
+        prob_array, Vern9(); reltol = 1.0e-12, abstol = 1.0e-15, tstops
     )
     @test successful_retcode(sol_array)
     for tstop in tstops
@@ -233,8 +231,7 @@ end
     f(u, p, t) = t > 5.0 ? 1.0 : 0.0
     prob = ODEProblem(f, 0.0, (0.0, 10.0))
     sol = solve(
-        prob, Euler(); dt = 0.5, d_discontinuities = [5.0],
-        adaptive = false
+        prob, Euler(); dt = 0.5, d_discontinuities = [5.0], adaptive = false
     )
     @test sol.u[end] ≈ 5.0 atol = 1.0e-10
 
@@ -255,8 +252,7 @@ end
     f(u, p, t) = t > 0.0 ? 1.0 : 0.0
     prob = ODEProblem(f, 0.0, (0.0, 5.0))
     sol = solve(
-        prob, Euler(); dt = 0.5, d_discontinuities = [0.0],
-        adaptive = false
+        prob, Euler(); dt = 0.5, d_discontinuities = [0.0], adaptive = false
     )
     @test sol.u[end] ≈ 5.0 atol = 1.0e-10
 end

@@ -40,9 +40,8 @@ h3(z) = z^2 # == 1//10**exp(3//2*t) if h3(z) = z and  == 1//100**exp(301//100*t)
 
 prob = SDEProblem(f3!, g3!, u₀, tspan)
 ensemble_prob = EnsembleProblem(
-    prob;
+    prob; prob_func,
     output_func = (sol, ctx) -> (h3(sol.u[end][1]), false),
-    prob_func
 )
 
 numtraj = Int(5.0e6)

@@ -7,8 +7,7 @@ function weak_error(
     sol = @time solve(
         prob, alg, ensemblealg;
         dt = 0.05f0, adaptive = true, abstol, reltol,
-        trajectories = numtraj, batch_size = batchsize,
-        saveat = trange
+        trajectories = numtraj, batch_size = batchsize, saveat = trange
     )
     computed_exp = (sol.u / numtraj)[1, :]
     true_exp = f_true.(trange)
@@ -55,9 +54,7 @@ f_true1(t) = t^3 - 3 * t^2 + 2 * t
 prob1 = SDEProblem(f1!, g1!, u₀, tspan)
 ensemble_prob1 = EnsembleProblem(
     prob1;
-    output_func,
-    prob_func,
-    reduction,
+    output_func, prob_func, reduction,
     u_init = Vector{eltype(prob1.u0)}([0.0])
 )
 

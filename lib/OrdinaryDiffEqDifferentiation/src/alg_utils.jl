@@ -148,9 +148,8 @@ function prepare_user_sparsity(ad_alg, prob)
         sparsity = concrete_mass_matrix(sparsity)
 
         color_alg = SciMLBase.has_colorvec(prob.f) ?
-            ConstantColoringAlgorithm(
-                sparsity, prob.f.colorvec
-            ) : GreedyColoringAlgorithm()
+            ConstantColoringAlgorithm(sparsity, prob.f.colorvec) :
+            GreedyColoringAlgorithm()
 
         sparsity_detector = ADTypes.KnownJacobianSparsityDetector(sparsity)
 

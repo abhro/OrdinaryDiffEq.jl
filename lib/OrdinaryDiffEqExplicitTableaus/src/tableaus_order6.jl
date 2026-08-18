@@ -13,7 +13,7 @@ function Butcher63(::Type{T} = Float64, ::Type{T_time} = T) where {T, T_time}
     A = map(T, A)
     α = map(T, α)
     c = map(T_time, c)
-    return (DiffEqBase.ExplicitRKTableau(A, c, α, 6, stability_size = 2.856108978668386))
+    return DiffEqBase.ExplicitRKTableau(A, c, α, 6; stability_size = 2.856108978668386)
 end
 
 """
@@ -66,7 +66,7 @@ function Butcher6(::Type{T} = Float64, ::Type{T_time} = T) where {T, T_time}
     A = map(T, A)
     α = map(T, α)
     c = map(T_time, c)
-    return (DiffEqBase.ExplicitRKTableau(A, c, α, 6, stability_size = 2.865620537276994))
+    return DiffEqBase.ExplicitRKTableau(A, c, α, 6; stability_size = 2.865620537276994)
 end
 
 """
@@ -119,7 +119,7 @@ function Butcher62(::Type{T} = Float64, ::Type{T_time} = T) where {T, T_time}
     A = map(T, A)
     α = map(T, α)
     c = map(T_time, c)
-    return (DiffEqBase.ExplicitRKTableau(A, c, α, 6, stability_size = 2.8561089786683866))
+    return DiffEqBase.ExplicitRKTableau(A, c, α, 6; stability_size = 2.8561089786683866)
 end
 
 """
@@ -192,11 +192,9 @@ function Verner6(::Type{T} = Float64, ::Type{T_time} = T) where {T, T_time}
     α = map(T, α)
     c = map(T_time, c)
     αEEst = map(T, αEEst)
-    return (
-        DiffEqBase.ExplicitRKTableau(
-            A, c, α, 6; adaptiveorder = 5, αEEst,
-            stability_size = 3.9541297306311853
-        )
+    return DiffEqBase.ExplicitRKTableau(
+             A, c, α, 6; adaptiveorder = 5, αEEst,
+             stability_size = 3.9541297306311853
     )
 end
 
@@ -269,11 +267,8 @@ function DormandPrince6(::Type{T} = Float64, ::Type{T_time} = T) where {T, T_tim
     α = map(T, α)
     c = map(T_time, c)
     αEEst = map(T, αEEst)
-    return (
-        DiffEqBase.ExplicitRKTableau(
-            A, c, α, 6; adaptiveorder = 5, αEEst,
-            stability_size = 3.954129730631186
-        )
+    return DiffEqBase.ExplicitRKTableau(
+        A, c, α, 6; adaptiveorder = 5, αEEst, stability_size = 3.954129730631186
     )
 end
 
@@ -356,11 +351,9 @@ function SharpVerner6(::Type{T} = Float64, ::Type{T_time} = T) where {T, T_time}
     α = map(T, α)
     c = map(T_time, c)
     αEEst = map(T, αEEst)
-    return (
-        DiffEqBase.ExplicitRKTableau(
-            A, c, α, 6; adaptiveorder = 5, αEEst, fsal = true,
-            stability_size = 4.470828492062036
-        )
+    return DiffEqBase.ExplicitRKTableau(
+        A, c, α, 6; adaptiveorder = 5, αEEst, fsal = true,
+        stability_size = 4.470828492062036
     )
 end
 
@@ -443,11 +436,8 @@ function Verner9162(::Type{T} = Float64, ::Type{T_time} = T) where {T, T_time}
     α = map(T, α)
     c = map(T_time, c)
     αEEst = map(T, αEEst)
-    return (
-        DiffEqBase.ExplicitRKTableau(
-            A, c, α, 6; adaptiveorder = 5, αEEst,
-            stability_size = 4.239991338165166
-        )
+    return DiffEqBase.ExplicitRKTableau(
+        A, c, α, 6; adaptiveorder = 5, αEEst, stability_size = 4.239991338165166
     )
 end
 
@@ -531,11 +521,8 @@ function Verner916(::Type{T} = Float64, ::Type{T_time} = T) where {T, T_time}
     α = map(T, α)
     c = map(T_time, c)
     αEEst = map(T, αEEst)
-    return (
-        DiffEqBase.ExplicitRKTableau(
-            A, c, α, 6; adaptiveorder = 5, αEEst,
-            stability_size = 4.250607671658528
-        )
+    return DiffEqBase.ExplicitRKTableau(
+        A, c, α, 6; adaptiveorder = 5, αEEst, stability_size = 4.250607671658528
     )
 end
 
@@ -615,11 +602,9 @@ function VernerRobust6(::Type{T} = Float64, ::Type{T_time} = T) where {T, T_time
     α = map(T, α)
     c = map(T_time, c)
     αEEst = map(T, αEEst)
-    return (
-        DiffEqBase.ExplicitRKTableau(
-            A, c, α, 6; adaptiveorder = 5, αEEst,
-            stability_size = 4.3240258134292215
-        )
+    return DiffEqBase.ExplicitRKTableau(
+        A, c, α, 6; adaptiveorder = 5, αEEst,
+        stability_size = 4.3240258134292215
     )
 end
 
@@ -704,11 +689,9 @@ function VernerEfficient6(::Type{T} = Float64, ::Type{T_time} = T) where {T, T_t
     α = map(T, α)
     c = map(T_time, c)
     αEEst = map(T, αEEst)
-    return (
-        DiffEqBase.ExplicitRKTableau(
-            A, c, α, 6; adaptiveorder = 5, αEEst, fsal = true,
-            stability_size = 4.8552743145651425
-        )
+    return DiffEqBase.ExplicitRKTableau(
+        A, c, α, 6; adaptiveorder = 5, αEEst, fsal = true,
+        stability_size = 4.8552743145651425
     )
 end
 
@@ -798,11 +781,8 @@ function Verner7(::Type{T} = Float64, ::Type{T_time} = T) where {T, T_time}
     α = map(T, α)
     c = map(T_time, c)
     αEEst = map(T, αEEst)
-    return (
-        DiffEqBase.ExplicitRKTableau(
-            A, c, α, 7; adaptiveorder = 6, αEEst,
-            stability_size = 4.640024335337557
-        )
+    return DiffEqBase.ExplicitRKTableau(
+        A, c, α, 7; adaptiveorder = 6, αEEst, stability_size = 4.640024335337557
     )
 end
 
@@ -940,11 +920,8 @@ function Verner8(::Type{T} = Float64, ::Type{T_time} = T) where {T, T_time}
     α = map(T, α)
     c = map(T_time, c)
     αEEst = map(T, αEEst)
-    return (
-        DiffEqBase.ExplicitRKTableau(
-            A, c, α, 8; adaptiveorder = 7, αEEst,
-            stability_size = 5.864113239353444
-        )
+    return DiffEqBase.ExplicitRKTableau(
+        A, c, α, 8; adaptiveorder = 7, αEEst, stability_size = 5.864113239353444
     )
 end
 
@@ -1027,11 +1004,9 @@ function Papakostas6(::Type{T} = Float64, ::Type{T_time} = T) where {T, T_time}
     α = map(T, α)
     c = map(T_time, c)
     αEEst = map(T, αEEst)
-    return (
-        DiffEqBase.ExplicitRKTableau(
-            A, c, α, 6; adaptiveorder = 5, αEEst, fsal = true,
-            stability_size = 4.449984142037165
-        )
+    return DiffEqBase.ExplicitRKTableau(
+        A, c, α, 6; adaptiveorder = 5, αEEst, fsal = true,
+        stability_size = 4.449984142037165
     )
 end
 
@@ -1085,7 +1060,7 @@ function Lawson6(::Type{T} = Float64, ::Type{T_time} = T) where {T, T_time}
     A = map(T, A)
     α = map(T, α)
     c = map(T_time, c)
-    return (DiffEqBase.ExplicitRKTableau(A, c, α, 6, stability_size = 6.463163498924733))
+    return DiffEqBase.ExplicitRKTableau(A, c, α, 6, stability_size = 6.463163498924733)
 end
 
 """
@@ -1157,11 +1132,8 @@ function TsitourasPapakostas6(::Type{T} = Float64, ::Type{T_time} = T) where {T,
     α = map(T, α)
     c = map(T_time, c)
     αEEst = map(T, αEEst)
-    return (
-        DiffEqBase.ExplicitRKTableau(
-            A, c, α, 6; adaptiveorder = 5, αEEst,
-            stability_size = 3.954129730631186
-        )
+    return DiffEqBase.ExplicitRKTableau(
+        A, c, α, 6; adaptiveorder = 5, αEEst, stability_size = 3.954129730631186
     )
 end
 
@@ -1245,11 +1217,9 @@ function DormandLockyerMcCorriganPrince6(::Type{T} = Float64, ::Type{T_time} = T
     α = map(T, α)
     c = map(T_time, c)
     αEEst = map(T, αEEst)
-    return (
-        DiffEqBase.ExplicitRKTableau(
-            A, c, α, 6; adaptiveorder = 5, αEEst, fsal = true,
-            stability_size = 4.371949555657634
-        )
+    return DiffEqBase.ExplicitRKTableau(
+        A, c, α, 6; adaptiveorder = 5, αEEst, fsal = true,
+        stability_size = 4.371949555657634
     )
 end
 
@@ -1352,11 +1322,8 @@ function TanakaKasugaYamashitaYazaki6D(::Type{T} = Float64, ::Type{T_time} = T) 
     α = map(T, α)
     c = map(T_time, c)
     αEEst = map(T, αEEst)
-    return (
-        DiffEqBase.ExplicitRKTableau(
-            A, c, α, 6; adaptiveorder = 5, αEEst,
-            stability_size = 7.723403386984321
-        )
+    return DiffEqBase.ExplicitRKTableau(
+        A, c, α, 6; adaptiveorder = 5, αEEst, stability_size = 7.723403386984321
     )
 end
 
@@ -1456,11 +1423,8 @@ function TanakaKasugaYamashitaYazaki6C(::Type{T} = Float64, ::Type{T_time} = T) 
     α = map(T, α)
     c = map(T_time, c)
     αEEst = map(T, αEEst)
-    return (
-        DiffEqBase.ExplicitRKTableau(
-            A, c, α, 6; adaptiveorder = 5, αEEst,
-            stability_size = 9.727143096983585
-        )
+    return DiffEqBase.ExplicitRKTableau(
+        A, c, α, 6; adaptiveorder = 5, αEEst, stability_size = 9.727143096983585
     )
 end
 
@@ -1545,11 +1509,8 @@ function TanakaKasugaYamashitaYazaki6B(::Type{T} = Float64, ::Type{T_time} = T) 
     α = map(T, α)
     c = map(T_time, c)
     αEEst = map(T, αEEst)
-    return (
-        DiffEqBase.ExplicitRKTableau(
-            A, c, α, 6; adaptiveorder = 5, αEEst,
-            stability_size = 6.007860841958881
-        )
+    return DiffEqBase.ExplicitRKTableau(
+        A, c, α, 6; adaptiveorder = 5, αEEst, stability_size = 6.007860841958881
     )
 end
 
@@ -1651,11 +1612,8 @@ function TanakaKasugaYamashitaYazaki6A(::Type{T} = Float64, ::Type{T_time} = T) 
     α = map(T, α)
     c = map(T_time, c)
     αEEst = map(T, αEEst)
-    return (
-        DiffEqBase.ExplicitRKTableau(
-            A, c, α, 6; adaptiveorder = 5, αEEst,
-            stability_size = 4.730235594027788
-        )
+    return DiffEqBase.ExplicitRKTableau(
+        A, c, α, 6; adaptiveorder = 5, αEEst, stability_size = 4.730235594027788
     )
 end
 
@@ -1720,11 +1678,8 @@ function MikkawyEisa(::Type{T} = Float64, ::Type{T_time} = T) where {T, T_time}
     α = map(T, α)
     c = map(T_time, c)
     αEEst = map(T, αEEst)
-    return (
-        DiffEqBase.ExplicitRKTableau(
-            A, c, α, 6; adaptiveorder = 4, αEEst,
-            stability_size = 3.932606644665211
-        )
+    return DiffEqBase.ExplicitRKTableau(
+        A, c, α, 6; adaptiveorder = 4, αEEst, stability_size = 3.932606644665211
     )
 end
 
@@ -1779,7 +1734,7 @@ function Chummund6(::Type{T} = Float64, ::Type{T_time} = T) where {T, T_time}
     A = map(T, A)
     α = map(T, α)
     c = map(T_time, c)
-    return (DiffEqBase.ExplicitRKTableau(A, c, α, 6, stability_size = 2.9052272747717307))
+    return DiffEqBase.ExplicitRKTableau(A, c, α, 6; stability_size = 2.9052272747717307)
 end
 
 """
@@ -1917,7 +1872,7 @@ function Chummund62(::Type{T} = Float64, ::Type{T_time} = T) where {T, T_time}
     A = map(T, A)
     α = map(T, α)
     c = map(T_time, c)
-    return (DiffEqBase.ExplicitRKTableau(A, c, α, 6, stability_size = 2.87113148977662))
+    return DiffEqBase.ExplicitRKTableau(A, c, α, 6; stability_size = 2.87113148977662)
 end
 
 """
@@ -1981,7 +1936,7 @@ function Huta62(::Type{T} = Float64, ::Type{T_time} = T) where {T, T_time}
     A = map(T, A)
     α = map(T, α)
     c = map(T_time, c)
-    return (DiffEqBase.ExplicitRKTableau(A, c, α, 6, stability_size = 4.042886866789528))
+    return DiffEqBase.ExplicitRKTableau(A, c, α, 6; stability_size = 4.042886866789528)
 end
 
 """
@@ -2045,7 +2000,7 @@ function Huta6(::Type{T} = Float64, ::Type{T_time} = T) where {T, T_time}
     A = map(T, A)
     α = map(T, α)
     c = map(T_time, c)
-    return (DiffEqBase.ExplicitRKTableau(A, c, α, 6, stability_size = 3.8400244379056505))
+    return DiffEqBase.ExplicitRKTableau(A, c, α, 6; stability_size = 3.8400244379056505)
 end
 
 """

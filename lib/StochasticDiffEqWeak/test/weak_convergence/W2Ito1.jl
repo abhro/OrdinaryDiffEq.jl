@@ -38,9 +38,8 @@ seeds = rand(UInt, numtraj)
 
 prob = SDEProblem(f, g, u₀, tspan)
 ensemble_prob = EnsembleProblem(
-    prob;
+    prob; prob_func,
     output_func = (sol, ctx) -> (h1(asinh(sol.u[end])), false),
-    prob_func
 )
 
 sim = test_convergence(
@@ -68,9 +67,8 @@ h2(z) = z^2 # == 1//10**exp(3//2*t) if h3(z) = z and  == 1//100**exp(301//100*t)
 
 prob = SDEProblem(f2, g2, u₀, tspan)
 ensemble_prob = EnsembleProblem(
-    prob;
+    prob; prob_func,
     output_func = (sol, ctx) -> (h2(sol.u[end][1]), false),
-    prob_func
 )
 
 numtraj = Int(1.0e5)
@@ -105,9 +103,8 @@ h3(z) = z^2 # but apply it only to u[1]
 
 prob = SDEProblem(f3, g3, u₀, tspan, noise_rate_prototype = zeros(2, 2))
 ensemble_prob = EnsembleProblem(
-    prob;
+    prob; prob_func,
     output_func = (sol, ctx) -> (h3(sol.u[end][1]), false),
-    prob_func
 )
 
 numtraj = Int(1.0e6)
@@ -141,9 +138,8 @@ h1(z) = z^3 - 6 * z^2 + 8 * z
 
 prob = SDEProblem(f1!, g1!, u₀, tspan)
 ensemble_prob = EnsembleProblem(
-    prob;
+    prob; prob_func,
     output_func = (sol, ctx) -> (h1(asinh(sol.u[end][1])), false),
-    prob_func
 )
 
 numtraj = Int(1.0e6)
@@ -179,9 +175,8 @@ h2(z) = z^2 # == 1//10**exp(3//2*t) if h3(z) = z and  == 1//100**exp(301//100*t)
 
 prob = SDEProblem(f2!, g2!, u₀, tspan)
 ensemble_prob = EnsembleProblem(
-    prob;
+    prob; prob_func,
     output_func = (sol, ctx) -> (h2(sol.u[end][1]), false),
-    prob_func
 )
 
 numtraj = Int(1.0e5)
@@ -219,9 +214,8 @@ h3(z) = z^2 # but apply it only to u[1]
 
 prob = SDEProblem(f3!, g3!, u₀, tspan, noise_rate_prototype = zeros(2, 2))
 ensemble_prob = EnsembleProblem(
-    prob;
+    prob; prob_func,
     output_func = (sol, ctx) -> (h3(sol.u[end][1]), false),
-    prob_func
 )
 
 numtraj = Int(1.0e6)

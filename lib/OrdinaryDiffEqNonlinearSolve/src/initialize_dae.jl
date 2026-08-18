@@ -304,9 +304,7 @@ function _initialize_dae!(
         end
 
         nlfunc = NonlinearFunction{true, SciMLBase.FullSpecialize}(
-            nlequation!;
-            f.jac_prototype,
-            jac
+            nlequation!; f.jac_prototype, jac
         )
         nlprob = NonlinearProblem(nlfunc, integrator.u, p)
         nlsolve = default_nlsolve(
@@ -392,9 +390,7 @@ function _initialize_dae!(
         end
 
         nlfunc = NonlinearFunction{false, SciMLBase.FullSpecialize}(
-            nlequation_oop;
-            f.jac_prototype,
-            jac
+            nlequation_oop; f.jac_prototype, jac
         )
         nlprob = NonlinearProblem(nlfunc, u0)
         isAD = _isforwarddiff_alg(integrator.alg)
@@ -484,9 +480,7 @@ function _initialize_dae!(
     end
 
     nlfunc = NonlinearFunction{true, SciMLBase.FullSpecialize}(
-        nlequation!;
-        f.jac_prototype,
-        jac
+        nlequation!; f.jac_prototype, jac
     )
     nlprob = NonlinearProblem(nlfunc, u0, p)
     nlsolve = default_nlsolve(
@@ -539,8 +533,7 @@ function _initialize_dae!(
         end
     end
     nlfunc = NonlinearFunction{false, SciMLBase.FullSpecialize}(
-        nlequation; f.jac_prototype,
-        jac
+        nlequation; f.jac_prototype, jac
     )
     nlprob = NonlinearProblem(nlfunc, u0)
     isAD = _isforwarddiff_alg(integrator.alg)

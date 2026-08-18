@@ -80,9 +80,8 @@ seed = 100
 Random.seed!(seed)
 seeds = rand(UInt, numtraj)
 ensemble_prob = EnsembleProblem(
-    prob;
+    prob; prob_func,
     output_func = (sol, ctx) -> (h2(sol[1, end]), false),
-    prob_func
 )
 sim = test_convergence(
     dts, ensemble_prob, DRI1(), save_everystep = false,

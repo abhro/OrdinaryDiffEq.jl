@@ -827,7 +827,7 @@ function evaluate_interpolant(
 end
 
 """
-ode_interpolation(tvals,ts,timeseries,ks)
+    ode_interpolation(tvals, ts, timeseries, ks)
 
 Get the value at tvals where the solution is known at the
 times ts (sorted), with values timeseries and derivatives ks
@@ -1101,7 +1101,7 @@ function ode_interpolation!(
 end
 
 """
-ode_interpolation(tval::Number,ts,timeseries,ks)
+    ode_interpolation(tval::Number, ts, timeseries, ks)
 
 Get the value at tval where the solution is known at the
 times ts (sorted), with values timeseries and derivatives ks
@@ -1223,7 +1223,7 @@ function ode_interpolation(
 end
 
 """
-ode_interpolation!(out,tval::Number,ts,timeseries,ks)
+    ode_interpolation!(out, tval::Number, ts, timeseries, ks)
 
 Get the value at tval where the solution is known at the
 times ts (sorted), with values timeseries and derivatives ks

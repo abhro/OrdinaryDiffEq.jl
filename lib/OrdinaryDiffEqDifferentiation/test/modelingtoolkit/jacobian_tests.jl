@@ -20,11 +20,7 @@ p = (1.0, 2.0, 3.0)
 u0 = [1.0]
 tspan = (0.0, 10.0)
 prob = ODEProblem(
-    ODEFunction(
-        d_alembert;
-        jac = d_alembert_jac,
-        analytic = d_alembert_analytic
-    ),
+    ODEFunction(d_alembert; jac = d_alembert_jac, analytic = d_alembert_analytic),
     u0, tspan, p
 )
 
@@ -68,19 +64,9 @@ sol = solve(prob, TRBDF2())
 
 for Alg in [Rodas5, Rosenbrock23, TRBDF2, KenCarp4]
     @test Array(
-        solve(
-            prob2,
-            Alg(),
-            tstops = sol.t,
-            adaptive = false
-        )
+        solve(prob2, Alg(), tstops = sol.t, adaptive = false)
     ) ≈ Array(
-        solve(
-            prob,
-            Alg(),
-            tstops = sol.t,
-            adaptive = false
-        )
+        solve(prob, Alg(), tstops = sol.t, adaptive = false)
     ) atol = 1.0e-4
 end
 

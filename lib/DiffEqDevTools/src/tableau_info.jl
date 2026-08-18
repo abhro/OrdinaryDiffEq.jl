@@ -1,12 +1,12 @@
 """
-`Base.length(tab::ODERKTableau)`
+    Base.length(tab::ODERKTableau)
 
 Defines the length of a Runge-Kutta method to be the number of stages.
 """
 Base.length(tab::ODERKTableau) = tab.stages
 
 """
-`stability_region(z, tab::ODERKTableau; embedded = false)`
+    stability_region(z, tab::ODERKTableau; embedded = false)
 
 Calculates the stability function from the tableau at `z`. Stable if <1.
 If `embedded = true`, the stability function is calculated for the embedded
@@ -59,8 +59,10 @@ function stability_region(z, alg::AbstractODEAlgorithm)
 end
 
 """
-`stability_region(tab_or_alg::Union{ODERKTableau, AbstractODEAlgorithm};
-                  initial_guess=-3.0)`
+    stability_region(
+        tab_or_alg::Union{ODERKTableau, AbstractODEAlgorithm};
+        initial_guess = -3.0
+    )
 
 Calculates the length of the stability region in the real axis.
 See also [`imaginary_stability_interval`](@ref).
